@@ -8,15 +8,15 @@ cat:
     status: true
     user_id: ada
     image_url: https://placebear.com/g/500/400
-  dog:
+dog:
     name: Cavalier King Charles Spaniel
-    stock: 0
+    stock: 2
     price: 2750.00
     description: Each and every one is a unique princess
     status: false
     user_id: grace
     image_url: https://placebear.com/g/500/400
-  dragon:
+dragon:
     name: Norweigan Ridgeback
     stock: 1
     price: 25000.00
