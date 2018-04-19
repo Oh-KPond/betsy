@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180419201856) do
+ActiveRecord::Schema.define(version: 20180419211006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,11 +37,13 @@ ActiveRecord::Schema.define(version: 20180419201856) do
     t.integer "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name_on_card"
   end
 
   create_table "orders_products", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "order_id", null: false
+    t.integer "quantity"
   end
 
   create_table "products", force: :cascade do |t|
@@ -50,7 +52,6 @@ ActiveRecord::Schema.define(version: 20180419201856) do
     t.integer "price"
     t.string "description"
     t.boolean "status"
-    t.string "category"
     t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20180419201856) do
     t.integer "rating"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "text_review"
   end
 
   create_table "users", force: :cascade do |t|
