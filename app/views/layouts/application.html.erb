@@ -11,6 +11,20 @@
     <%= csrf_meta_tags %>
   </head>
 
+  <header>
+  <nav>
+    <ul>
+      <% if @user %>
+        <li> Welcome <%= @user.name %>
+          <%= link_to "logout", logout_path, method: :delete %>
+       </li>
+      <% else %>
+      <%= link_to "login with GitHub", github_login_path %>
+      <% end %>
+    </ul>
+  </nav>
+</header>
+
   <body>
 
     <%= yield %>
