@@ -1,2 +1,11 @@
 id,user_id,image_url,name,price,stock,description
 1,2,https://placekitten.com/g/200/300,Fluffy Kitten,400,2,Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+2,2,https://placebear.com/g/500/400,Three-Toed Sloth,2800,6,Chill, mellow, and mindful being. Great mediation partner.
+3,1,https://placebear.com/g/500/400,Koala Bear,2000,4,Clocking in at an average of 18-22 hours of sleep per day, the Koala is the perfect sleep companion.
+4,3,https://placebear.com/g/500/400,Giant Panda,13000,1,The Giant Panda usually spends their time sleeping, and foraging for food. The Giant Panda would be a cool hiking mate.
+5,3,https://placebear.com/g/500/400,Armadillo,799,2,Night Owl? Armadillos are most active in the evening, and sleep for 18-19 hours a day. Great late night buddy.
+6,4,https://placebear.com/g/500/400,Brown Bat,1350,8,Not only do Brown Bats sleep 20 hours a day, but they also hibernate half of the year! What a life, huh? If you need some deep rest, the Brown Bat is the pet for you.
+7,5,https://cdn.pixabay.com/photo/2014/04/03/10/22/dragon-310237_1280.png,Lovable Dragon,25000,2,Dragons are among the most popular and enduring of the world's mythological creatures. Dragon tales are known in many cultures, from the Americas to Europe to India to China. Though they populate our books, films, and television shows, they have a long and rich history in many forms.
+8,5,https://cdn.pixabay.com/photo/2014/04/02/14/09/dino-306331_1280.png,Cute Triceratops,60000,1,Triceratops is a genus of herbivorous ceratopsid dinosaur that first appeared during the late Maastrichtian stage of the late Cretaceous period, about 68 million years ago in what is now North America.
+9,6,https://cdn.pixabay.com/photo/2017/01/25/08/11/unicorn-2007266_1280.png,Unicorn,80000,1,While many mythic creatures are man-eating monsters or evil spirits, others, like unicorns, are powerful and peaceful.
+10,7,https://cdn.pixabay.com/photo/2017/12/20/15/55/narwhal-3030167_1280.png,Nice Narwhal, 50000,3,Often dubbed the unicorns of the sea, narwhals are strange and beautiful creatures with long tusks protruding from their heads. Members of the population of more than 80,000 can weigh up to 4,200 pounds and grow as long as 17 feet in length.
