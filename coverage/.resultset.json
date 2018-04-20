@@ -55,12 +55,19 @@
         null,
         null,
         1,
+        1,
+        1,
+        1,
+        null,
+        0,
+        null,
+        null,
         null,
         null,
         null,
         1,
         1,
-        1,
+        2,
         null,
         null
       ],
@@ -91,7 +98,6 @@
       ],
       "/Users/lilysky/ADA/Rails/betsy/app/models/category.rb": [
         1,
-        1,
         null
       ],
       "/Users/lilysky/ADA/Rails/betsy/app/models/order.rb": [
@@ -103,6 +109,6 @@
         null
       ]
     },
-    "timestamp": 1524201703
+    "timestamp": 1524203229
   }
 }

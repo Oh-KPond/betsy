@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
     if @product.save
       # flash[:status] = :success
       # flash[:result_text] = "Successfully created #{@product.name}"
-      redirect_to product_path(@product)
+      redirect_to products_path
     else
       # flash[:status] = :failure
       # flash[:result_text] = "Could not create #{@product.name}"
@@ -31,6 +31,13 @@ class ProductsController < ApplicationController
   end
 
   def update
+    @product = Product.find_by(id: params[:id])
+    if @product.update(product_params)
+      redirect_to products_path
+    else
+      render :edit
+      # , status: :not_found
+    end
   end
 
 
