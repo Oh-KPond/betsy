@@ -6,7 +6,14 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to products_path
+      flash[:status] = :success
+      flash[:result_text] = "Successfully created #{@product.name}"
+      redirect_to product_path(@product)
+    else
+      flash[:status] = :failure
+      flash[:result_text] = "Could not create #{@product.name}"
+      flash[:messages] = @product.errors.messages
+      render :new, status: :bad_request
     end
   end
 
@@ -25,12 +32,7 @@ class ProductsController < ApplicationController
   def update
   end
 
-  def destroy #remove from actively available
-    @product = Product.find_by(id: params[:id])
-    if @product
-      @product.status = false
-    end
-  end
+  
 
   private
   def product_params

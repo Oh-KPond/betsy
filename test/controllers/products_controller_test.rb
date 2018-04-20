@@ -20,32 +20,45 @@ describe ProductsController do
       end
   end
 
-  describe "new" do
+  describe "show" do
     it "succeeds" do
       get product_path(products(:cat))
+      must_respond_with :success
+    end
+
+    it "redirects if not in db" do
+
+    end
+  end
+
+  describe "new" do
+    it "succeeds" do
+      get new_product_path
       must_respond_with :success
     end
   end
 
   describe "create" do
-    # it "creates a product with valid data" do
-    #   proc {
-    #     post products_path, params: {
-    #       product: {
-    #         name: "Bunny",
-    #         stock: 14,
-    #         price: 5,
-    #         description: "Too many, please help",
-    #         status: true,
-    #         user_id: users(:ada).id,
-    #         image_url: "test URL"
-    #       }
-    #     }
-    #   }.must_change "Product.count", 1
-    #
-    #   must_respond_with :redirect
-    #   must_redirect_to products_path
-    # end
+    it "creates a product with valid data" do
+      Product.count.must_equal 3
+
+      # login_user(users(:ada))
+        post products_path params: {
+          product: {
+            name: "Bunny",
+            stock: 14,
+            price: 5,
+            description: "Too many, please help",
+            status: true,
+            user_id: users(:ada).id,
+            image_url: "www.test-URL.com"
+          }
+        }
+
+      Product.count.must_equal 4
+      # must_respond_with :redirect
+      # must_redirect_to products_path
+    end
 
   #   it "renders bad_request and does not update the DB for bogus data" do
   #     proc {
@@ -65,9 +78,17 @@ describe ProductsController do
   end
 
 
-
-    it "should get edit" do
-      get edit_product_path(products(:cat))
+  describe "edit" do
+    it "succeeds for an extant product ID" do
+      get edit_product_path(products(:cat).id)
       must_respond_with :success
     end
+
+    # it "renders 404 not_found for a bogus work ID" do
+    #   get edit_product_path("carrot")
+    #   must_respond_with :not_found
+    # end
+
+  end
+
 end
