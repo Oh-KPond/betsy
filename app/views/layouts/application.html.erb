@@ -19,7 +19,7 @@
           <%= link_to "logout", logout_path, method: :delete %>
        </li>
       <% else %>
-      <li> You are shopping as guest <%= @cached_guest_user.id %>
+      <li> You are shopping as guest #<%= @cached_guest_user.id %>
       <%= link_to "login with GitHub", github_login_path %>
       <% end %>
     </ul>
