@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
+  before_action :current_or_guest_user
+
   # if user is logged in, return current_user, else return guest_user
  def current_or_guest_user
    find_user
@@ -34,8 +36,6 @@ class ApplicationController < ActionController::Base
   end
 
 
-
-
  private
 
  # called (once) when the user logs in, insert any code your application needs
@@ -58,6 +58,8 @@ class ApplicationController < ActionController::Base
    session[:guest_user_id] = guest.id
    guest
  end
+
+
 
 
 end
