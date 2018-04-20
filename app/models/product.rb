@@ -2,6 +2,7 @@ class Product < ApplicationRecord
   belongs_to :user
   belongs_to :category
   belongs_to :order, through: :orders_products
+
   has_many :orders_products
   has_many :orders, through: :orders_products
   has_many :reviews
