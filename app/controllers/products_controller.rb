@@ -36,7 +36,6 @@ class ProductsController < ApplicationController
       redirect_to products_path
     else
       render :edit
-      # , status: :not_found
     end
   end
 

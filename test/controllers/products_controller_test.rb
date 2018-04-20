@@ -124,7 +124,7 @@ describe ProductsController do
     # it "renders 404 not_found for a bogus product ID" do
     #   put product_path(products(:dragon).id), params: {
     #     product: {
-    #       id: "deeface????"
+    #       id: "deeface"
     #     }
     #   }
     #   must_respond_with :not_found
