@@ -15,16 +15,35 @@
   <nav>
     <ul>
       <% if @user %>
-        <li> Welcome <%= @user.name %>
+        <li> Welcome <%= @user.username %>
           <%= link_to "logout", logout_path, method: :delete %>
        </li>
       <% else %>
+      <li> You are shopping as guest <%= @cached_guest_user.id %>
       <%= link_to "login with GitHub", github_login_path %>
       <% end %>
     </ul>
   </nav>
 </header>
-
+<section class="flash">
+        <% flash.each do |name, message| %>
+          <section class="callout <%= name %>">
+            <% if name == "alert" %>
+              <ul>
+                <% flash[:alert].each do |field, message| %>
+                  <li>
+                    <strong> <%= field.capitalize %> </strong> <%= message %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+            <p>
+              <%= message %>
+            </p>
+            <% end %>
+          </section>
+          <% end %>
+        </section>
   <body>
 
     <%= yield %>
