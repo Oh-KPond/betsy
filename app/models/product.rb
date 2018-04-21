@@ -1,12 +1,7 @@
 class Product < ApplicationRecord
-
-  belongs_to :user
-  belongs_to :category
-  has_one :order, through: :orders_products
-
-  has_many :orders_products
-  has_many :orders, through: :orders_products
-  has_many :reviews
+  has_and_belongs_to_many :categories
+  has_many :order_items
+  has_many :orders, through: :order_items
 
   validates :user_id, presence: true
 
