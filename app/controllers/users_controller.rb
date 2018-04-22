@@ -1,3 +1,12 @@
 class UsersController < ApplicationController
-  before_action :current_or_guest_user
+
+  def index
+    @users = User.where.not(username: "guest")
+  end
+
+  def show
+    id = params[:id]
+    @user = User.find(id)
+  end
+
 end
