@@ -17,8 +17,8 @@ CSV.foreach(PRODUCT_FILE, :headers => true) do |row|
   product.status = true
   successful = product.save
   if !successful
-    procuct_failures << procuct
-    puts "Failed to save procuct: #{product.inspect}"
+    product_failures << product
+    puts "Failed to save product: #{product.inspect}"
   else
     puts "Created product: #{product.inspect}"
   end
@@ -63,7 +63,7 @@ CSV.foreach(ORDERS_FILE, :headers => true) do |row|
   order.id = row['id']
   order.status = row['status']
   order.name_on_card = Faker::Name.name
-  order.cc_num = Faker::Number.number(9) # Integer of 16 digits can not be held here while the column is just an Interger.. it must be a big integer
+  order.cc_num = Faker::Number.number(4) # Integer of 16 digits can not be held here while the column is just an Interger.. it must be a big integer, or a string
   order.cvv= Faker::Number.number(3)
   order.email = Faker::Internet.email
   order.street_address = Faker::Address.street_address
@@ -92,7 +92,7 @@ CSV.foreach(CATEGORIES_FILE, :headers => true) do |row|
   category.name = row['name']
   successful = category.save
   if !successful
-    categories_failures << categories
+    category_failures << category
     puts "Failed to save categories: #{category.inspect}"
   else
     puts "Created category: #{category.inspect}"
@@ -101,6 +101,30 @@ end
 
 puts "Added #{Category.count} category records"
 puts "#{category_failures.length} categories failed to save"
+
+## Commented out since reviews won't work until DB has been updated
+
+REVIEWS_FILE = Rails.root.join('db', 'seed_data', 'reviews.csv')
+puts "Loading raw reviews data from #{REVIEWS_FILE}"
+
+review_failures = []
+CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
+  review = Review.new
+  review.id = row['id']
+  review.product_id = row['product_id']
+  review.rating = row['rating']
+  review.text_review = Faker::Lorem.sentence
+  successful = review.save
+  if !successful
+    review_failures << review
+    puts "Failed to save review: #{review.inspect}"
+  else
+    puts "Created review: #{review.inspect}"
+  end
+end
+
+puts "Added #{Review.count} review records"
+puts "#{review_failures.length} reviews failed to save"
 
 
 # Since we set the primary key (the ID) manually on each of the
