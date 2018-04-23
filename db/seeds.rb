@@ -111,6 +111,7 @@ review_failures = []
 CSV.foreach(REVIEWS_FILE, :headers => true) do |row|
   review = Review.new
   review.id = row['id']
+  review.user_id = row['user_id']
   review.product_id = row['product_id']
   review.rating = row['rating']
   review.text_review = Faker::Lorem.sentence
