@@ -18,9 +18,14 @@
   <%= f.label :image_url %>
   <%= f.text_field :image_url %>
 
-  <%= f.label :user_id %>
+  <%= f.label :user %>
   <%= f.text_field :user_id %>
 
-  <%= f.submit class: "button"%>
+  <div>
+   <%= f.label :categories %>
+   <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
+ </div>
+
+  <%= f.submit class: "button" %>
   <% end %>
 </section>
