@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :current_or_guest_user
+  before_action :root
+
+  def root
+    @categories = Category.all
+  end
 
   # if user is logged in, return current_user, else return guest_user
  def current_or_guest_user
@@ -32,8 +37,7 @@ class ApplicationController < ActionController::Base
 
  def find_user
     @user = User.find_by(id: session[:user_id])
-  end
-
+ end
 
 
 
