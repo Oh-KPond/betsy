@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  before_action :current_or_guest_user
+
   def new
     @product = Product.new
   end
@@ -12,9 +14,9 @@ class ProductsController < ApplicationController
       # flash[:result_text] = "Successfully created #{@product.name}"
       redirect_to products_path
     else
-      # flash[:status] = :failure
-      # flash[:result_text] = "Could not create #{@product.name}"
-      # flash[:messages] = @product.errors.messages
+      flash[:status] = :failure
+      flash[:result_text] = "Could not create #{@product.name}"
+      flash[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
@@ -44,6 +46,6 @@ class ProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:product).permit(:name, :stock, :price, :description, :status, :user_id, :image_url)
+    params.require(:product).permit(:name, :stock, :price, :description, :status, :user_id, :image_url, category_ids:[])
   end
 end

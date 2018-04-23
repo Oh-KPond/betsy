@@ -1,5 +1,6 @@
 <h1><%= @product.name %></h1>
 
+<<<<<<< HEAD
 
 <%= form_for order_item do |f| %>
   Unit Price: <%= @product.price %>
@@ -9,3 +10,39 @@
   <%= f.submit "Add to Cart" %>
 
 <% end %>
+=======
+<img src="<%= @product.image_url %>">
+
+
+<article>
+  <h2>
+    Categories: <%= @product.categories.length %>
+  </h2>
+  <ul>
+    <% @product.categories.each do |category| %>
+    <li>
+      <%= category.name %>
+    </li>
+    <% end %>
+  </ul>
+</article>
+
+<article>
+  <p>
+    Stock: <%= @product.stock %>
+  </p>
+  <p>
+    Price: $<%= @product.price %>
+  </p>
+  <p>
+    Description: <%= @product.description %>
+  </p>
+  <p>
+    Seller ID: <%= @product.user_id %>
+  </p>
+</article>
+
+
+<%= link_to "All products", products_path, class: "button" %>
+<%= link_to "Edit", edit_product_path(@product.id), class: "button" %>
+>>>>>>> ded6331fd17494de8d1f08733016a39dd089da6e

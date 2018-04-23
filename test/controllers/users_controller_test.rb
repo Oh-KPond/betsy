@@ -18,7 +18,7 @@ describe UsersController do
 
     end
   end
-  # 
+  #
   # describe "show" do
   #
   #   it "should get show" do
