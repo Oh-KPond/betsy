@@ -31,6 +31,8 @@
     <%= f.label :cvv, "Credit Card CCV" %>
     <%= f.number_field :cvv %>
 
+    <%= hidden_field_tag "user", @user.id
+
     <%= f.submit "Complete Payment", class: "button" %>
   <% end %>
   </div>
