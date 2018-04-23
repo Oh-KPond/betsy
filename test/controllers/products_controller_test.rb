@@ -40,12 +40,18 @@ describe ProductsController do
     end
   end
 
+  # describe "relations" do
+  #   it "responds to categories" do
+  #
+  #   end
+  # end
+
   describe "create" do
     it "creates a product with valid data" do
       Product.count.must_equal 3
         proc {
           # login_user(users(:ada))
-            post products_path params: {
+            post products_path, params: {
               product: {
                 name: "Bunny",
                 stock: 14,
@@ -53,7 +59,8 @@ describe ProductsController do
                 description: "Too many, please help",
                 status: true,
                 user_id: users(:ada).id,
-                image_url: "www.test-URL.com"
+                image_url: "www.test-URL.com",
+                categories: [categories(:one)]
               }
             }
         }.must_change "Product.count", 1
