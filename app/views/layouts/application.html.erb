@@ -12,6 +12,7 @@
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
+
   <body>
     <div class="body-wrapper">
       <header>
@@ -22,9 +23,10 @@
               <%= link_to "logout", logout_path, method: :delete %>
             </li>
             <% else %>
-            <li> You are shopping as guest #<%= @cached_guest_user.id %>
+            <li> You are shopping as a guest
               <%= link_to "login with GitHub", github_login_path %>
               <% end %>
+              <li> <%= link_to "See my order", new_order_path%> </li>
             </ul>
           </nav>
 
@@ -63,4 +65,4 @@
         </main>
       </div>
     </body>
-</html>
+  </html>

@@ -1,7 +1,6 @@
 class ReviewsController < ApplicationController
 
-  before_action :current_or_guest_user
-  before_action :find_product,
+  before_action :find_product, only: [:new]
 
   def new
     if session[:user_id] == @product.user_id
@@ -12,6 +11,7 @@ class ReviewsController < ApplicationController
     else
       @review = Review.new
     end
+
   end
 
   def create
