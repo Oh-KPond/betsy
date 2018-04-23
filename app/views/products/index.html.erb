@@ -7,7 +7,7 @@
     <%= link_to product.name, product_path(product.id) %>
   </li>
   <li>
-    <%= link_to image_tag(product.image_url), product_path(product.id), :alt => "#{product.name} image"%>
+    <%= link_to image_tag(product.image_url), product_path(product.id), :alt => "#{product.name} image", :title => "#{product.name}" %>
   </li>
   <% end %>
 </ul>
