@@ -31,6 +31,27 @@
   </p>
 </article>
 
+<article>
+  <h2>Reviews</h2>
+  Count: <%= @product.reviews.count %>
 
-<%= link_to "All products", products_path, class: "button" %>
-<%= link_to "Edit", edit_product_path(@product.id), class: "button" %>
+  <ul>
+    <% @product.reviews.each do |review| %>
+    <li>
+      Rating: <%= review.rating %>
+    </li>
+    <li>
+      User: <%= review.user_id %>
+    </li>
+    <li>
+      Notes: <%= review.text_review %>
+    </li>
+    <% end %>
+  </ul>
+</article>
+
+<article>
+  <%= link_to "All products", products_path, class: "button" %>
+  <%= link_to "Edit", edit_product_path(@product.id), class: "button" %>
+  <%= link_to "Leave a review", new_product_review_path(@product.id), class: "button" %>
+</article>
