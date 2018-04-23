@@ -10,7 +10,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @order.each do |product| %>
+    <% @order.products.each do |product| %>
       <tr>
         <td><%= product.name %></td>
         <td><%= product.quantity %></td>
