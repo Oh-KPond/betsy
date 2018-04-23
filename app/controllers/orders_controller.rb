@@ -3,24 +3,25 @@ class OrdersController < ApplicationController
   end
 
   def create
-
   end
 
   def new
-    @user = User.find_by(id: session[:user_id])
-
-    if @user == nil
-      @order = Order.find_by(user_id: @cached_guest_user.id, status: "pending")
+    if @user
+      @order = Order.find(session[:user_open_order_id])
     else
-      @order = Order.find_by(user_id: @user.id, status: "pending")
+      @order = Order.find(session[:guest_order_id])
     end
-
   end
 
   def edit
   end
 
   def show
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = session[:guest_order]
+    end
   end
 
   def update
@@ -28,5 +29,4 @@ class OrdersController < ApplicationController
 
   def destroy
   end
-
 end

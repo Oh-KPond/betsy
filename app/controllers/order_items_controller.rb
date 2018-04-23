@@ -2,15 +2,17 @@ class OrderItemsController < ApplicationController
 
   def create
     if @user
-      @order = Order.find_by(user_id: @user.id, status: "pending")
+      @order = Order.find(session[:user_open_order_id])
     else
-      @order = Order.find_by(user_id: @cached_guest_user.id, status: "pending")
+
+      @order = Order.find(session[:guest_order_id])
     end
     @order_item = @order.order_items.new(order_item_params)
+    @order_item.order_id = @order.id
     @order_item.save
 
 
-    redirect_back(fallback_location: root_path)
+    redirect_to new_order_path
   end
 
   # def update
@@ -28,6 +30,6 @@ class OrderItemsController < ApplicationController
   # end
   private
     def order_item_params
-      params.require(:order_item).permit(:quantity, :product_id)
+      params.require(:order_item).permit(:quantity, :product_id, :order_id)
     end
 end

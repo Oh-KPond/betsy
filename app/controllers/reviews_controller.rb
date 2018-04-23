@@ -1,7 +1,4 @@
 class ReviewsController < ApplicationController
-
-
-  before_action :current_or_guest_user
   before_action :find_product, only: [:new]
 
   def new

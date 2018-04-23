@@ -1,70 +1,32 @@
-  class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
-  before_action :current_or_guest_user
-
-  before_action :current_or_guest_user
+  before_action :find_session
 
   # if user is logged in, return current_user, else return guest_user
-  def current_or_guest_user
-   find_user
-   if @user
-     if session[:guest_user_id] && session[:guest_user_id] != @user.id
-       id = session[:guest_user_id]
-       logging_in(id)
-       # reload guest_user to prevent caching problems before destruction
-       guest_user.destroy
-       session[:guest_user_id] = nil
-     end
+  def find_session
+    find_user
 
-     if @user.orders.find_by(status: "pending") == nil
-       @order = Order.new(user_id: @user.id, status: "pending")
-     end
+    if @user == nil
+      if session[:guest_order_id] == nil
+        new_order = Order.new(status: "pending")
+        new_order.save
+        session[:guest_order_id] = new_order.id
+      end
+      
+    else
+      if Order.find_by(id: session[:user_open_order_id])
+        @user
+      else
+        @order = Order.new(status: "pending")
+        @order.save
+        session[:user_open_order_id] = @order.id
+      end
 
-     @user
-
-   else
-     guest_user
-   end
-  end
-
-  # find guest_user object associated with the current session,
-  # creating one as needed
-  def guest_user(with_retry = true)
-   # Cache the value the first time it's gotten.
-   @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
-   @order = Order.new(user_id: @cached_guest_user.id, status: "pending")
-
-  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
-    session[:guest_user_id] = nil
-    guest_user if with_retry
+      @user
+    end
   end
 
   def find_user
     @user = User.find_by(id: session[:user_id])
   end
-
-
-  private
-
-  # called (once) when the user logs in, insert any code your application needs
-  # to hand off from guest_user to current_user.
-  def logging_in(num)
-
-   carry_over_order = Order.find_by(user_id: num, status: "pending")
-
-  if carry_over_order
-   carry_over_order.user_id = @user.id
-   @order = carry_over_order
- end
-
-  end
-
-  def create_guest_user
-   guest = User.new(:username => "guest", :email => "guest_#{Time.now.to_i}#{rand(100)}@example.com")
-   guest.save!(:validate => false)
-   session[:guest_user_id] = guest.id
-   guest
-  end
-
-
 end

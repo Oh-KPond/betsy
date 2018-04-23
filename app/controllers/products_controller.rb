@@ -1,7 +1,5 @@
 class ProductsController < ApplicationController
 
-  before_action :current_or_guest_user
-
   def new
     @product = Product.new
   end
@@ -23,18 +21,22 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = Order.find(session[:guest_order_id])
+    end
     @orders_products = @order.order_items.new
   end
 
   def show
     if @user
-      @order = Order.find_by(user_id: @user.id, status: "pending")
+      @order = Order.find(session[:user_open_order_id])
     else
-      @order = Order.find_by(user_id: @cached_guest_user.id, status: "pending")
+      @order = session[:guest_order]
     end
     @product = Product.find_by(id: params[:id])
     @order_item = OrderItem.new(product_id: @product.id)
-
   end
 
   def edit
