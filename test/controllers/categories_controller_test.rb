@@ -35,7 +35,7 @@ describe CategoriesController do
                 name: "Dangerous"
               }
             }
-        }.must_change "Product.count", 1
+        }.must_change "Category.count", 1
       # must_respond_with :redirect
       # must_redirect_to products_path
     end
