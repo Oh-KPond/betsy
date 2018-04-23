@@ -1,5 +1,4 @@
 class ProductsController < ApplicationController
-  before_action :current_or_guest_user
 
   def new
     @product = Product.new
@@ -22,14 +21,29 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = Order.find(session[:guest_order_id])
+    end
+    @orders_products = @order.order_items.new
   end
 
   def show
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = session[:guest_order]
+    end
     @product = Product.find_by(id: params[:id])
+
+    @order_item = OrderItem.new(product_id: @product.id)
+
 
     if @product.nil?
       redirect_to products_path
     end
+
   end
 
   def edit

@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
       @user = User.find_by(uid: auth_hash[:uid], provider: params[:provider])
 
       if @user.nil?
+
         # make a new user with method from model
         @user = User.build_from_github(auth_hash)
         successful_save = @user.save
@@ -28,10 +29,16 @@ class SessionsController < ApplicationController
       end
 
       session[:user_id] = @user.id
+      new_order = Order.new(status: "pending")
+      new_order.save
+      session[:user_open_order_id]  = new_order.id
+
     else
       flash[:error] = "Logging in through GitHub not successful"
       redirect_to root_path
     end
+
+
   end
 
 
