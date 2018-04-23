@@ -16,5 +16,5 @@ id,user_id,image_url,name,price,stock,description
 15,5,https://placebear.com/g/500/400,cloud,5,1000,Get a pet cloud! Provided by mother nature.
 16,2,https://placebear.com/g/500/400,Hedgehog,45,2,Soft at heart
 17,3,https://placebear.com/g/500/400,Crocodile,200,1,Rhinestone-encrusted collar included
-18,4,https://placebear.com/g/500/400,Golden-doodle,800,Extreme fluff situations
+18,4,https://placebear.com/g/500/400,Golden-doodle,800,1,Extreme fluff situations
 19,5,https://placebear.com/g/500/400,Wombat,100,3,Short-legged marsupial native to Australia
