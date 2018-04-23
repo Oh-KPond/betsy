@@ -6,6 +6,11 @@ class OrdersController < ApplicationController
   end
 
   def new
+    if @user
+      @order = @user.orders.find_by(status: "pending")
+    else
+      @order = @cached_guest_user.orders.find_by(status: "pending")
+    end
   end
 
   def edit

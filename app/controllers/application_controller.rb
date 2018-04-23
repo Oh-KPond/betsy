@@ -14,11 +14,17 @@ class ApplicationController < ActionController::Base
        guest_user(with_retry = false).try(:reload).try(:destroy)
        session[:guest_user_id] = nil
      end
+
+     if @user.orders.find_by(status: "pending") == nil
+       Order.new(user_id: @user.id, status: "pending")
+     end
+
      @user
 
    else
      guest_user
    end
+   raise
  end
 
  # find guest_user object associated with the current session,
@@ -26,6 +32,7 @@ class ApplicationController < ActionController::Base
  def guest_user(with_retry = true)
    # Cache the value the first time it's gotten.
    @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
+    Order.new(user_id: @cached_guest_user.id, status: "pending")
 
  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
     session[:guest_user_id] = nil
