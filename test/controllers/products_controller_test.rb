@@ -27,9 +27,8 @@ describe ProductsController do
     end
 
     it "redirects if not in db" do
-      # get product_path("carrot")
-      # must_respond_with :not_found
-      # must_redirect_to products_path
+      get product_path("carrot")
+      must_redirect_to products_path
     end
   end
 
@@ -39,12 +38,6 @@ describe ProductsController do
       must_respond_with :success
     end
   end
-
-  # describe "relations" do
-  #   it "responds to categories" do
-  #
-  #   end
-  # end
 
   describe "create" do
     it "creates a product with valid data" do
@@ -68,24 +61,22 @@ describe ProductsController do
       must_redirect_to products_path
     end
 
-    # it "renders bad_request and does not update the DB for bogus data" do
-    #   proc {
-    #     post products_path, params: {
-    #       product: {
-    #         name: "Bunny",
-    #         stock: 14,
-    #         price: 5,
-    #         description: "Too many, please help",
-    #         status: true,
-    #         user_id: users(:ada).id,
-    #         image_url: "www.test-URL.com"
-    #         }
-    #       }
-    #     }.must_change "Product.count", 0
-    #
-    #   Product.count.must_equal 3
-    #   must_respond_with :bad_request
-    # end
+    it "won't create invalid product" do
+      proc {
+        post products_path, params: {
+          product: {
+            stock: 14,
+            price: 5,
+            description: "Too many, please help",
+            status: true,
+            user_id: users(:ada).id,
+            image_url: "www.test-URL.com"
+            }
+          }
+        }.must_change "Product.count", 0
+
+      Product.count.must_equal 3
+    end
   end
 
   describe "edit" do
@@ -116,18 +107,18 @@ describe ProductsController do
       must_respond_with :redirect
     end
 
-    # it "renders bad_request for bogus data" do
-    #   put product_path(products(:dragon).id), params: {
-    #     product: {
-    #       name: ""
-    #     }
-    #   }
-    #
-    #   must_respond_with :not_found
-    # end
-    #
+    it "renders bad_request for bogus data" do
+      product = products(:dragon)
+      put product_path(product.id), params: {
+        product: {
+          name: ""
+        }
+      }
 
-    #WHAT IS THIS TEST?
+      product.name.must_equal "Norweigan Ridgeback"
+    end
+
+
     # it "renders 404 not_found for a bogus product ID" do
     #   put product_path(products(:dragon).id), params: {
     #     product: {

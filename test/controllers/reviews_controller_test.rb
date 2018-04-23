@@ -15,23 +15,20 @@ describe ReviewsController do
   end
 
   describe "create" do
-    it "returns success when saving a review" do
-      before_count = Review.count
-
-      review_data = {
-        review: {
-          review: "This is another review that will be created",
-          rating: 2,
-          product: Product.first
+    it "redirects to product's page when saving a review" do
+      Review.count.must_equal 2
+      proc {
+        post product_reviews_path(products(:dog).id), params: {
+          review: {
+            text_review: "This is another review that will be created",
+            rating: 2,
+            product_id: products(:dog).id
+          }
         }
-      }
+      }.must_change "Review.count", 1
 
-      Review.new(review_data[:review]).must_be :valid?
-
-      post product_reviews_path(review_data[:review][:product]), params: review_data
       must_respond_with :redirect
-      must_redirect_to product_path(review_data[:review][:product])
-      Review.count.must_equal before_count + 1
+      must_redirect_to product_path(products(:dog).id)
     end
 
     it "sends bad_request when the review data is bogus" do
