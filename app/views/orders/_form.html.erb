@@ -1,6 +1,6 @@
 <section class="order-form">
 <div class="order-form">
-  <%= form_for :order, :url => {:action => "create", :id => @order} do |f| %>
+  <%= form_for @order do |f| %>
     <%= f.label :name %>
     <%= f.text_field :name %>
 
