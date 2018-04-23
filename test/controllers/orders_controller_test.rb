@@ -1,4 +1,5 @@
 require "test_helper"
+require 'pry'
 
 describe OrdersController do
   describe "index" do
