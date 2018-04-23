@@ -39,9 +39,14 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
     if @product.update(product_params)
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.name}"
       redirect_to products_path
     else
-      render :edit
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update #{@media_category.singularize}"
+      flash.now[:messages] = @work.errors.messages
+      render :edit, status: :not_found
     end
   end
 
