@@ -52,6 +52,10 @@ end
 puts "Added #{User.count} user records"
 puts "#{user_failures.length} users failed to save"
 
+puts "Manually resetting PK sequence on each table"
+ActiveRecord::Base.connection.tables.each do |t|
+  ActiveRecord::Base.connection.reset_pk_sequence!(t)
+end
 
 
 ORDERS_FILE = Rails.root.join('db', 'seed_data', 'orders.csv')

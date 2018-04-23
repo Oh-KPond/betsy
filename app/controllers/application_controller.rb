@@ -24,7 +24,6 @@ class ApplicationController < ActionController::Base
    else
      guest_user
    end
-   raise
  end
 
  # find guest_user object associated with the current session,
@@ -32,8 +31,9 @@ class ApplicationController < ActionController::Base
  def guest_user(with_retry = true)
    # Cache the value the first time it's gotten.
    @cached_guest_user ||= User.find(session[:guest_user_id] ||= create_guest_user.id)
-    Order.new(user_id: @cached_guest_user.id, status: "pending")
-
+    ok = Order.new(user_id: @cached_guest_user.id, status: "pending")
+    ok.save
+      raise
  rescue ActiveRecord::RecordNotFound # if session[:guest_user_id] invalid
     session[:guest_user_id] = nil
     guest_user if with_retry
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
 
  def create_guest_user
    guest = User.new(:username => "guest", :email => "guest_#{Time.now.to_i}#{rand(100)}@example.com")
-   guest.save!(:validate => false)
+   guest.save!(:validate => true)
    session[:guest_user_id] = guest.id
    guest
  end
