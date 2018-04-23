@@ -27,7 +27,14 @@ class ProductsController < ApplicationController
   end
 
   def show
+    if @user
+      @order = Order.find_by(user_id: @user.id, status: "pending")
+    else
+      @order = Order.find_by(user_id: @cached_guest_user.id, status: "pending")
+    end
     @product = Product.find_by(id: params[:id])
+    @order_item = OrderItem.new(product_id: @product.id)
+
   end
 
   def edit
