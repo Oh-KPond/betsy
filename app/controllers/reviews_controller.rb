@@ -28,17 +28,18 @@ class ReviewsController < ApplicationController
       render :new, status: :bad_request
     end
   end
-end
+  
+  private
 
-private
-
-def find_product
-  @product = Product.find_by(id: params[:product_id])
-  unless @product
-    head :not_found
+  def find_product
+    @product = Product.find_by(id: params[:product_id])
+    unless @product
+      head :not_found
+    end
   end
-end
 
-def review_params
-  return params.require(:review).permit(:rating, :text_review, :product_id)
+  def review_params
+    return params.require(:review).permit(:rating, :text_review, :product_id)
+  end
+
 end
