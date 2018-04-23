@@ -12,9 +12,9 @@ class ProductsController < ApplicationController
       # flash[:result_text] = "Successfully created #{@product.name}"
       redirect_to products_path
     else
-      flash[:status] = :failure
-      flash[:result_text] = "Could not create #{@product.name}"
-      flash[:messages] = @product.errors.messages
+      # flash[:status] = :failure
+      # flash[:result_text] = "Could not create #{@product.name}"
+      # flash[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
@@ -36,7 +36,14 @@ class ProductsController < ApplicationController
       @order = session[:guest_order]
     end
     @product = Product.find_by(id: params[:id])
+
     @order_item = OrderItem.new(product_id: @product.id)
+
+
+    if @product.nil?
+      redirect_to products_path
+    end
+
   end
 
   def edit
