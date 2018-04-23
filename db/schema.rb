@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20180421055653) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name_on_card"
+    t.integer "user_id"
   end
 
   create_table "products", force: :cascade do |t|
