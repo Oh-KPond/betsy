@@ -1,8 +1,6 @@
 class ReviewsController < ApplicationController
 
-<<<<<<< HEAD
-  def index
-=======
+
   before_action :current_or_guest_user
   before_action :find_product, only: [:new]
 
@@ -15,7 +13,7 @@ class ReviewsController < ApplicationController
     else
       @review = Review.new
     end
->>>>>>> ded6331fd17494de8d1f08733016a39dd089da6e
+
   end
 
   def create
