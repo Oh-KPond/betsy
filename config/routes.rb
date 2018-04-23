@@ -9,7 +9,9 @@ Rails.application.routes.draw do
   resources :orders
   resources :products
   resources :categories
+  resources :order_items
   # resources :reviews
+
 
   get "/auth/github", as: 'github_login'
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
