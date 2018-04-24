@@ -21,11 +21,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = Order.find(session[:guest_order_id])
-    end
+    find_order
     @orders_products = @order.order_items.new
   end
 
