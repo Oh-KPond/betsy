@@ -47,4 +47,18 @@ class ApplicationController < ActionController::Base
 
     @order
   end
+
+  def make_new_order
+    if @user
+      new_order = Order.new(status: "pending")
+      new_order.save
+      session[:user_open_order_id]  = new_order.id
+      @order = new_order
+    else
+      new_order = Order.new(status: "pending")
+      new_order.save
+      session[:guest_order_id] = new_order.id
+      @order = new_order
+    end
+  end
 end
