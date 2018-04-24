@@ -4,13 +4,12 @@ class SessionsController < ApplicationController
   end
 
   def create
-    # could also be called login instead
-
+    
     auth_hash = request.env['omniauth.auth']
 
     if auth_hash['uid']
       @user = User.find_by(uid: auth_hash[:uid], provider: params[:provider])
-    
+
       if @user.nil?
 
         # make a new user with method from model

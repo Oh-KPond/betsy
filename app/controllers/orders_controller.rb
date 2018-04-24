@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
   end
 
   def create
-
   end
 
   def new
@@ -34,13 +33,12 @@ class OrdersController < ApplicationController
     end
 
     @order.update_attributes(update_order_params)
-
+    
     if @order.save
       flash[:success] = "Thank you for placing your order!"
       make_new_order
       redirect_to root_path
     else
-      # this makes the error messages into a flash hash so it can be used by application.html.erb
       flash.now[:alert] = @order.errors
       render :new
     end

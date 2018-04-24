@@ -30,45 +30,48 @@ describe OrdersController do
 
 
 
-  describe "create" do
-    it "creates an order with valid data" do
-      new_order_hash = {
-        status: "pending",
-        name_on_card: "Ada Lovelace",
-        cc_num: "1234",
-        cvv: 123,
-        email: "ada@adadevelopersacademy.org",
-        street_address: "123 Pine Street",
-        state: "WA",
-        city: "Seattle",
-        zip: 98104
+  describe "update" do
+    it "updates an order with valid data" do
+      order = orders(:open)
+
+      order_info = {
+      name_on_card: "Bunny",
+      cc_num: "1234567",
+      cvv: 121,
+      email: "hello@hi.org",
+      street_address: "111 Candy Cane Lane",
+      state: "NP",
+      city: "Santa",
+      zip: 54321,
+      status: "paid"
       }
 
       proc   {
-        post orders_path, params: { new_order: new_order_hash }
+        put order_path(order.id), params: { order: order_info }
       }.must_change 'Order.where(status: "paid").count', 1
 
-      order = Order.find_by(zip: 98104)
 
       must_respond_with :redirect
       must_redirect_to root_path
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
+      order = orders(:open)
+
       bad_order_hash = {
-        status: "pending",
+        status: "paid",
         name_on_card: nil,
         cc_num: "1234",
         cvv: 123,
-        email: "ada@adadevelopersacademy.org",
-        street_address: "123 Pine Street",
-        state: "WA",
-        city: "Seattle",
-        zip: 98104
+        email: "apple@apple.apple",
+        street_address: "123 Phinney",
+        state: "KS",
+        city: "Kansas",
+        zip: 11111
       }
 
       proc   {
-        post orders_path, params: { order: bad_order_hash }
+        put order_path(order.id), params: { order: bad_order_hash }
       }.must_change 'Order.where(status: "paid").count', 0
 
       must_respond_with :bad_request
