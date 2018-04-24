@@ -1,8 +1,6 @@
 <section class="order-form">
 <div class="order-form">
   <%= form_for @order do |f| %>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
 
     <%= f.label :name_on_card, "Name on Credit Card" %>
     <%= f.text_field :name_on_card %>
@@ -23,17 +21,21 @@
     <%= f.number_field :zip %>
 
     <%= f.label :cc_num, "Credit Card Number" %>
-    <%= f.number_field :cc_numb %>
+    <%= f.number_field :cc_num %>
 
-    <%= f.label :cc_expiration, "Expiration Date" %>
-    <%= f.date_select :cc_expiration %>
 
     <%= f.label :cvv, "Credit Card CCV" %>
     <%= f.number_field :cvv %>
 
-    <%= hidden_field_tag "user", @user.id
+    <% if @user %>
+      <%= hidden_field_tag "user", @user.id %>
+    <% else %>
+      <%= hidden_field_tag "user", session[:guest_order_id] %>
+    <% end %>
 
-    <%= f.submit "Complete Payment", class: "button" %>
+
+    <%= f.submit "Complete Payment", class: "button", method: :post%>
+
   <% end %>
   </div>
 </section>

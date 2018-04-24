@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :find_session
+  before_action :get_categories
+
+  def get_categories
+    @categories = Category.all
+  end
 
   def render_404
     # DPR: this will actually render a 404 page in production
@@ -33,5 +38,18 @@ class ApplicationController < ActionController::Base
 
   def find_user
     @user = User.find_by(id: session[:user_id])
+  end
+
+  def find_order
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    elsif Order.find(session[:guest_order_id])
+      @order = Order.find(session[:guest_order_id])
+    else
+      @order = Order.new(id: session[:guest_order_id])
+      @order.save
+    end
+
+    @order
   end
 end
