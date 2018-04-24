@@ -4,8 +4,7 @@ describe UsersController do
   describe "index" do
 
     it "should get index" do
-      person = users(:ada)
-      get users_path(person.id)
+      get users_path
       must_respond_with :success
     end
 
@@ -18,12 +17,24 @@ describe UsersController do
 
     end
   end
-  #
-  # describe "show" do
-  #
-  #   it "should get show" do
-  #
-  #   end
-  # end
+
+  describe "show" do
+    it "should get show" do
+      id = users(:ada).id
+      get users_path(id)
+
+      must_respond_with :success
+    end
+  end
+
+  describe "update" do
+    it "should change user information" do
+      updated_username = "CandyCanes111"
+      put user_path(users(:grace).id), params: { user: { username: updated_username}  }
+
+      updated_user = User.find(users(:grace).id)
+      updated_user.username.must_equal "CandyCanes111"
+    end
+  end
 
 end
