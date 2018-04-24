@@ -15,21 +15,22 @@
     </div>
   </div>
   <div class="show-desc small-7 columns">
-    <ul>
-      <li id="user-name"><%= link_to @product.user_id, products_path(@product.user_id) %></li>
-      <li><h2><%= @product.name %></h2></li>
-      <li><span><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> <%= @product.reviews.count %> </li>
-      <li>Price:  <%= (@product.price) %> </li>
+      <id="user-name"> <%= link_to @product.user_id, products_path(@product.user_id) %>
+      <h2><%= @product.name %></h2>
+      <span><p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span>
+      <%= @product.reviews.count %></p>
+      <p>Price:$  <%= (@product.price) %></p>
       <%if @product.stock == 0%>
-       <li> <span class="green">No stock for retired products </span></li>
+       <span class="green">No stock for retired products </span>
        <% else %>
         <% if @product.stock != nil && @product.stock != 0 %>
-          <li><span class="green">In Stock</span> (only <%= @product.stock %> left) </li>
+          <p><span class="green">In Stock</span> (only <%= @product.stock %> left)</p>
         <% else %>
-          <li><span class="grey">Out of Stock</span></li>
+          <p><span class="grey">Out of Stock</span></p>
         <% end %>
       <% end %>
-      <li><%= @product.description %> </li>
+      <p> Description:
+      <%= @product.description %></p>
 
       <% if @product.stock != 0 %>
         <%= form_for @order_item do |f| %>
@@ -39,18 +40,18 @@
         <%= f.submit "Add to Cart", class: "cart button"%>
         <% end %>
       <%end%>
-    </ul>
+
   </div>
 </div>
 
 <div class="review row">
 
   <h3>Customer reviews</h3>
-  <p><span><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> <%= ( @product.reviews.count ) %></p>
+  <p><span><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</p>
   <article class="reviews">
     <% @product.reviews.each do |review| %>
     <section>
-      <span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span>
+      <p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
       <p>Reviewed by: <%= @user.username%></p>
       <p>Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
       <p><%= review.text_review %></p>
