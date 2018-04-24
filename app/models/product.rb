@@ -11,9 +11,9 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than: 0}
   validates :stock, presence: true, numericality: {greater_than_or_equal_to: 0, only_integer: true}
 
-  def self.by_category(category)
+  def self.by_category(id)
     assigned = Product.where.not(category: [])
-    selected = assigned.select {|product| product.categories.include?(category)}
+    selected = assigned.select {|product| product.categories.include?(id)}
 
     return selected
   end
