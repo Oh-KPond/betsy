@@ -15,5 +15,7 @@ class Product < ApplicationRecord
     greater_than_or_equal_to: 0,
     only_integer: true
   }
-
+  def average_rating
+    return reviews.average(:rating).to_i
+  end
 end
