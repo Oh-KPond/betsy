@@ -7,10 +7,7 @@
 @import "styles/sessions.scss";
 @import "styles/users.scss";
 
-* {
-  font-family: 'Merriweather', serif;
-}
-
 .body-wrapper {
   padding: 2%;
+  overflow: auto;
 }
