@@ -15,3 +15,8 @@ gretchen:
   uid: 9999089
   email: gretchen@adadevelopersacademy.org
   username: gigi
+lily:
+  provider: github
+  uid: 999978
+  email: lily@adadevelopersacademy.org
+  username: lillerz
