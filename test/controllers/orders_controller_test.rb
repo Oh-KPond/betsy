@@ -31,41 +31,45 @@ describe OrdersController do
 
 
   describe "create" do
-    it "creates a order with valid data" do
+    it "creates an order with valid data" do
       new_order_hash = {
-        name: "Three-Toed Sloth",
-        stock: 6,
-        price: 2800,
-        description: "Chill, mellow, and mindful being. Great mediation partner.",
-        status: true,
-        user_id: 999,
-        image_url: "https://placebear.com/g/500/400"
+        status: "pending",
+        name_on_card: "Ada Lovelace",
+        cc_num: "1234",
+        cvv: 123,
+        email: "ada@adadevelopersacademy.org",
+        street_address: "123 Pine Street",
+        state: "WA",
+        city: "Seattle",
+        zip: 98104
       }
 
       proc   {
         post orders_path, params: { new_order: new_order_hash }
-      }.must_change 'Order.count', 1
+      }.must_change 'Order.where(status: "paid").count', 1
 
-      order = Order.find_by(name: "Three-Toed Sloth")
+      order = Order.find_by(zip: 98104)
 
       must_respond_with :redirect
-      must_redirect_to order_path(order.id)
+      must_redirect_to root_path
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
       bad_order_hash = {
-        name: "Three-Toed Sloth",
-        stock: 6,
-        price: 2800,
-        description: "Chill, mellow, and mindful being. Great mediation partner.",
-        status: true,
-        user_id: 999,
-        image_url: "https://placebear.com/g/500/400"
+        status: "pending",
+        name_on_card: nil,
+        cc_num: "1234",
+        cvv: 123,
+        email: "ada@adadevelopersacademy.org",
+        street_address: "123 Pine Street",
+        state: "WA",
+        city: "Seattle",
+        zip: 98104
       }
 
       proc   {
         post orders_path, params: { order: bad_order_hash }
-      }.must_change 'Order.count', 0
+      }.must_change 'Order.where(status: "paid").count', 0
 
       must_respond_with :bad_request
     end
