@@ -10,7 +10,11 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: {greater_than: 0}
   validates :stock, presence: true, numericality: {greater_than_or_equal_to: 0, only_integer: true}
 
-  def self.by_category(id)
+  def average_rating
+    return reviews.average(:rating).to_i
+  end
+
+  def self.by_category(category)
     assigned = Product.where.not(category: [])
     selected = assigned.select {|product| product.categories.include?(id)}
 
@@ -20,5 +24,6 @@ class Product < ApplicationRecord
   def self.by_merchant(id)
     return Product.where(user_id: id)
   end
+
 
 end
