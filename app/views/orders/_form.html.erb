@@ -1,6 +1,6 @@
 <section class="order-form">
 <div class="order-form">
-  <%= form_for @order do |f| %>
+  <%= form_for @order, method: :post  do |f| %>
 
     <%= f.label :name_on_card, "Name on Credit Card" %>
     <%= f.text_field :name_on_card %>
@@ -34,7 +34,7 @@
     <% end %>
 
 
-    <%= f.submit "Complete Payment", class: "button", method: :post%>
+    <%= f.submit "Complete Payment", class: "button" %>
 
   <% end %>
   </div>

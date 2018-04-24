@@ -3,6 +3,7 @@ class OrdersController < ApplicationController
   end
 
   def create
+    raise
   end
 
   def new

@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all
-  find_order
+    find_order
     @orders_products = @order.order_items.new
   end
 
