@@ -43,7 +43,6 @@ describe ProductsController do
     it "creates a product with valid data" do
       Product.count.must_equal 3
         proc {
-          # login_user(users(:ada))
             post products_path, params: {
               product: {
                 name: "Bunny",
