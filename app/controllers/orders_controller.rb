@@ -3,23 +3,7 @@ class OrdersController < ApplicationController
   end
 
   def create
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = Order.find(session[:guest_order_id])
-    end
 
-    @order.status = "paid"
-
-
-    if @order.save
-      flash[:success] = "Thank you for placing your order!"
-      redirect_to root_path
-    else
-      # this makes the error messages into a flash hash so it can be used by application.html.erb
-      flash.now[:alert] = @order.errors
-      render :new
-    end
   end
 
   def new
@@ -43,8 +27,30 @@ class OrdersController < ApplicationController
   end
 
   def update
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = Order.find(session[:guest_order_id])
+    end
+
+    @order.update_attributes(update_order_params)
+
+    if @order.save
+      flash[:success] = "Thank you for placing your order!"
+      make_new_order
+      redirect_to root_path
+    else
+      # this makes the error messages into a flash hash so it can be used by application.html.erb
+      flash.now[:alert] = @order.errors
+      render :new
+    end
   end
 
   def destroy
   end
+
+  private
+    def update_order_params
+      params.require(:order).permit(:status, :cc_num, :cvv, :state, :city, :zip, :name_on_card, :street_address, :email, )
+    end
 end
