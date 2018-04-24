@@ -34,4 +34,17 @@ class ApplicationController < ActionController::Base
   def find_user
     @user = User.find_by(id: session[:user_id])
   end
+
+  def find_order
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    elsif Order.find(session[:guest_order_id])
+      @order = Order.find(session[:guest_order_id])
+    else
+      @order = Order.new(id: session[:guest_order_id])
+      @order.save
+    end
+
+    @order
+  end
 end
