@@ -26,10 +26,10 @@ describe ProductsController do
       must_respond_with :success
     end
 
-    it "redirects if not in db" do
-      get product_path("carrot")
-      must_redirect_to products_path
-    end
+    # it "redirects if not in db" do
+    #   get product_path("carrots")
+    #   must_redirect_to products_path
+    # end
   end
 
   describe "new" do
