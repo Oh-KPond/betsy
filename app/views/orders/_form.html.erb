@@ -33,7 +33,9 @@
       <%= hidden_field_tag "user", session[:guest_order_id] %>
     <% end %>
 
+
     <%= f.submit "Complete Payment", class: "button", method: :post%>
+
   <% end %>
   </div>
 </section>

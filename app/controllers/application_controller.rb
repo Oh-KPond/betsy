@@ -1,6 +1,11 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :find_session
+  before_action :get_categories
+
+  def get_categories
+    @categories = Category.all
+  end
 
   # if user is logged in, return current_user, else return guest_user
   def find_session
@@ -12,7 +17,7 @@ class ApplicationController < ActionController::Base
         new_order.save
         session[:guest_order_id] = new_order.id
       end
-      
+
     else
       if Order.find_by(id: session[:user_open_order_id])
         @user
