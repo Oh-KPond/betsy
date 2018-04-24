@@ -28,12 +28,23 @@ describe UsersController do
   end
 
   describe "update" do
-    it "should change user information" do
+    it "changes user information" do
       updated_username = "CandyCanes111"
       put user_path(users(:grace).id), params: { user: { username: updated_username}  }
 
       updated_user = User.find(users(:grace).id)
       updated_user.username.must_equal "CandyCanes111"
+    end
+
+    it "will not change username to one that already exists" do
+      updated_username = users(:grace).username
+      initial_username = users(:ada).username
+
+      put user_path(users(:ada).id), params: { user: { username: updated_username}  }
+
+      updated_user = User.find(users(:ada).id)
+      updated_user.username.must_equal initial_username
+
     end
   end
 
