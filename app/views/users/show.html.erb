@@ -1,7 +1,36 @@
-<h1>Users#index</h1>
+<h2><%= @user.username %>'s Shop</h2>
 
-<ul>
-<li><%= @user.username %></li>
-<li> <%= @user.id %> </li>
+<div class="grid-container">
+  <div class="grid-x grid-padding-x small-up-2 medium-up-3 large-up-4">
+    <% if @products.length == 0 %>
+      <p>
+        No items yet!
+      </p>
+    <% else %>
+      <% @products.each do |product| %>
+      <section class="cell">
+        <section class="card homepage-cards">
+          <p class="homepage-card-image">
+            <%= link_to image_tag(product.image_url), product_path(product.id), :alt => "#{product.name} image", :title => "#{product.name}" %>
+          </p>
+          <h4 class="card-divider"><%= link_to product.name, product_path(product.id) %></h4>
+          <p class="card-section">
+            <%= link_to product.description, product_path(product.id) %>
+          </p>
+          <p class="card-section">
+            <% if @user %>
+            <%= link_to "Edit #{product.name}", edit_user_product_path(@user.id), class: "button" %>
+            <% end %>
+          </p>
+        </section>
+      </section>
+      <% end %>
+    <% end %>
+  </div>
+</div>
 
-</ul>
+<article>
+  <% if @user %>
+  <%= link_to "Add New Product", new_user_product_path(@user.id), class: "button" %>
+  <% end %>
+</article>

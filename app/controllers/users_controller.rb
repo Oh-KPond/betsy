@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def show
     id = params[:id]
     @user = User.find(id)
+
+    @products = Product.by_merchant(@user.id)
   end
 
   def update

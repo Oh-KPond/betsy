@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users
   resources :orders
-  resources :products
+  resources :products, except: [:new, :create, :edit, :update]
   resources :categories
   resources :order_items
   # resources :reviews
@@ -15,6 +15,10 @@ Rails.application.routes.draw do
 
   get "/auth/github", as: 'github_login'
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
+
+  resources :users do
+    resources :products, only: [:new, :create, :edit, :update]
+  end
 
   resources :products do
     resources :reviews, only: [:new, :create]
