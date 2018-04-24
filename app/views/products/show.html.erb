@@ -1,4 +1,3 @@
-<!-- ++++++++++++++++++++++++++++++++++++++++ -->
 <div class="product row">
   <% if @product.status == false || @product.stock == 0 %>
   <div class="banner">
@@ -49,7 +48,7 @@
       <p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
       <p>Reviewed by: <%= @user.username%></p>
       <p>Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
-      <p><%= review.text_review %></p>
+      <p>Review: "<%= review.text_review %>"</p>
     </section>
     <% end %>
     <%= link_to "Write a Review", new_product_review_path(@product.id), class: " button" %>

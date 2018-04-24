@@ -17,7 +17,7 @@ class Product < ApplicationRecord
 
   def self.by_category(category)
     assigned = Product.where.not(category: [])
-    selected = assigned.select {|product| product.categories.include?(category)}
+    selected = assigned.select {|product| product.categories.include?(id)}
 
     return selected
   end
