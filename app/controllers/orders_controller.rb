@@ -14,14 +14,14 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    # if @user
+    #   @order = Order.find(session[:user_open_order_id])
+    # else
+    #   @order = session[:guest_order]
+    # end
   end
 
   def show
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = session[:guest_order]
-    end
 
   end
 
@@ -33,10 +33,17 @@ class OrdersController < ApplicationController
     end
 
     @order.update_attributes(update_order_params)
-    
+
     if @order.save
       flash[:success] = "Thank you for placing your order!"
+
+      @order.order_items.each do |item|
+        product = Product.find(item.product_id)
+        product.change_stock(item.quantity)
+      end
+      
       make_new_order
+
       redirect_to root_path
     else
       flash.now[:alert] = @order.errors

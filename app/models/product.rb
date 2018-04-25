@@ -21,4 +21,12 @@ class Product < ApplicationRecord
     return Product.where(user_id: id)
   end
 
+  def change_stock(quantity)
+    total = self.stock
+    number = total - quantity
+    self.stock = number
+    self.save
+
+  end
+
 end
