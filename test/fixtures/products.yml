@@ -3,7 +3,7 @@
 cat:
     name: British Short-Hair
     stock: 4
-    price: 500.00
+    price: 500
     description: Excellent company on a rainy day
     status: true
     user_id: ada.id
@@ -11,7 +11,7 @@ cat:
 dog:
     name: Cavalier King Charles Spaniel
     stock: 2
-    price: 2750.00
+    price: 2750
     description: Each and every one is a unique princess
     status: false
     user_id: grace.id
@@ -19,7 +19,7 @@ dog:
 dragon:
     name: Norweigan Ridgeback
     stock: 1
-    price: 25000.00
+    price: 25000
     description: Very Rare; in excellent health
     status: true
     user_id: gretchen.id
