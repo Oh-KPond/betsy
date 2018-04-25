@@ -25,7 +25,6 @@ describe OrderItemsController do
 
       must_respond_with :bad_request
     end
-
   end
 
   describe "update" do
@@ -44,8 +43,21 @@ describe OrderItemsController do
 
       must_respond_with :redirect
       must_redirect_to new_order_path
-
-
     end
+  end
+
+  describe "destroy" do
+    it "succeeds for an extant order item ID" do
+      item = order_items(:one)
+      proc {
+        delete order_item_path(item.id)}.must_change 'OrderItem.count', -1
+    end
+
+    it "renders 404 not_found and does not update the DB for a bogus order item ID" do
+
+      proc {
+        delete order_item_path('abc')}.must_change 'OrderItem.count', 0
+    end
+
   end
 end

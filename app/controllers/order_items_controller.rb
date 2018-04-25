@@ -28,18 +28,22 @@ class OrderItemsController < ApplicationController
       redirect_back(fallback_location: new_order_path)
     end
   end
-  #
-  # def destroy
-  #   @order = current_order
-  #   @order_item = @order.order_items.find(params[:id])
-  #   @order_item.destroy
-  #   @order_items = @order.order_items
-  # end
-  private
-    def order_item_params
-      params.require(:order_item).permit(:quantity, :product_id, :order_id)
+
+  def destroy
+    order_item = OrderItem.find(params[:id])
+    if order_item.destroy
+      flash[:success] = "Product removed from cart"
+      redirect_back(fallback_location: new_order_path)
+    else
+      flash[:error] = "Product was not removed from cart"
+      redirect_back(fallback_location: new_order_path)
     end
+  end
+  
+  private
 
-
+  def order_item_params
+    params.require(:order_item).permit(:quantity, :product_id, :order_id)
+  end
 
 end
