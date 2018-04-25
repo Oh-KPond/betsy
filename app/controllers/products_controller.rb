@@ -8,13 +8,10 @@ class ProductsController < ApplicationController
     @product = Product.create(product_params)
 
     if @product.save
-      flash[:status] = :success
       flash[:result_text] = "Successfully created #{@product.name}"
       redirect_to products_path
     else
-      flash[:status] = :failure
       flash[:result_text] = "Could not create #{@product.name}"
-      flash[:messages] = @product.errors.messages
       render :new, status: :bad_request
     end
   end
