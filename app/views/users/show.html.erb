@@ -18,7 +18,7 @@
             <%= link_to product.description, product_path(product.id) %>
           </p>
           <p class="card-section">
-            <% if @user %>
+            <% if @merchant == @user %>
             <%= link_to "Edit #{product.name}", edit_user_product_path(@user.id), class: "button" %>
             <% end %>
           </p>
@@ -29,19 +29,14 @@
   </div>
 </div>
 
+<% if @merchant == @user %>
 <section class="merchant-area">
   <article>
-    <% if @user %>
       <%= link_to "Add New Product", new_user_product_path(@user.id), class: "button" %>
-    <% end %>
   </article>
 
   <article>
-    <% if @merchant == @user %>
-
-      <p>LOGGED IN AS MERCHANT</p>
-    <% end %>
+      <p>see orders</p>
   </article>
-
-
 </section>
+<% end %>
