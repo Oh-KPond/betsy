@@ -1,4 +1,4 @@
-<h2><%= @user.username %>'s Shop</h2>
+<h2><%= @merchant.username %>'s Shop</h2>
 
 <div class="grid-container">
   <div class="grid-x grid-padding-x small-up-2 medium-up-3 large-up-4">
@@ -37,7 +37,7 @@
   </article>
 
   <article>
-    <% if @user %>
+    <% if @merchant == @user %>
 
       <%= @orders.count %>
       <% @orders.each do |join| %>
