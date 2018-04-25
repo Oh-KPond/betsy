@@ -29,8 +29,22 @@
   </div>
 </div>
 
-<article>
-  <% if @user %>
-  <%= link_to "Add New Product", new_user_product_path(@user.id), class: "button" %>
-  <% end %>
-</article>
+<section class="merchant-area">
+  <article>
+    <% if @user %>
+      <%= link_to "Add New Product", new_user_product_path(@user.id), class: "button" %>
+    <% end %>
+  </article>
+
+  <article>
+    <% if @user %>
+
+      <%= @orders.count %>
+      <% @orders.each do |join| %>
+      <%= join.order %>
+      <% end %>
+    <% end %>
+  </article>
+
+
+</section>

@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def index
+    @orders = Order.all
   end
 
   def create
@@ -22,7 +23,6 @@ class OrdersController < ApplicationController
     else
       @order = session[:guest_order]
     end
-
   end
 
   def update
@@ -33,7 +33,7 @@ class OrdersController < ApplicationController
     end
 
     @order.update_attributes(update_order_params)
-    
+
     if @order.save
       flash[:success] = "Thank you for placing your order!"
       make_new_order
