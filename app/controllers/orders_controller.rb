@@ -41,7 +41,7 @@ class OrdersController < ApplicationController
         product = Product.find(item.product_id)
         product.change_stock(item.quantity)
       end
-      
+
       make_new_order
 
       redirect_to root_path
