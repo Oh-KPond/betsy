@@ -11,13 +11,8 @@ class OrderItemsController < ApplicationController
     @order_item.order_id = @order.id
     @order_item.save
 
-<<<<<<< HEAD
     flash[:status] = :success
           flash[:result_text] = "Successfully added to cart"
-=======
-
-
->>>>>>> a5261b3d2336b563803dfc0ccd41d028a7e4df32
     redirect_to new_order_path
   end
 
