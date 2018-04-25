@@ -1,4 +1,3 @@
-require 'pry'
 class OrderItemsController < ApplicationController
 
   def create
@@ -39,7 +38,7 @@ class OrderItemsController < ApplicationController
       redirect_back(fallback_location: new_order_path)
     end
   end
-  
+
   private
 
   def order_item_params
