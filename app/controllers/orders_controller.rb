@@ -44,6 +44,7 @@ class OrdersController < ApplicationController
       end
 
       processed_order_id = @order.id
+
       make_new_order
 
       redirect_to order_path(params[:id])
