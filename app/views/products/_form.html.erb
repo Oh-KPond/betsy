@@ -1,5 +1,5 @@
 <section>
-  <%= form_for @product do |f| %>
+  <%= form_for @product, url: destination do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
