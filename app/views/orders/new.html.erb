@@ -6,7 +6,11 @@
   <%= product.name %>
   <ul>
     <li>Price: <%= product.price %></li>
-    <li> Quantity: <%= item.quantity %> </li>
+
+    <li> Quantity: <%= form_for :quantity, url: order_item_path(item.id), method: :put do |f| %>
+      <%= f.number_field :quantity, value: item.quantity, min: 1, max: product.stock %>
+        <%= f.submit "Update Quantity" %>
+    <% end %> </li>
   </ul>
 <% end %>
 

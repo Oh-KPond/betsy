@@ -1,12 +1,7 @@
 class OrderItemsController < ApplicationController
 
   def create
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-
-      @order = Order.find(session[:guest_order_id])
-    end
+    find_order
     @order_item = @order.order_items.new(order_item_params)
     @order_item.order_id = @order.id
     @order_item.save
@@ -15,12 +10,14 @@ class OrderItemsController < ApplicationController
     redirect_to new_order_path
   end
 
-  # def update
-  #   @order = current_order
-  #   @order_item = @order.order_items.find(params[:id])
-  #   @order_item.update_attributes(order_item_params)
-  #   @order_items = @order.order_items
-  # end
+  def update
+    @order = find_order
+    order_item = OrderItem.find(params[:id])
+    new_quantity = params[:quantity][:quantity]
+    order_item.update(quantity: new_quantity)
+
+    redirect_to new_order_path
+  end
   #
   # def destroy
   #   @order = current_order
@@ -32,4 +29,7 @@ class OrderItemsController < ApplicationController
     def order_item_params
       params.require(:order_item).permit(:quantity, :product_id, :order_id)
     end
+
+
+
 end
