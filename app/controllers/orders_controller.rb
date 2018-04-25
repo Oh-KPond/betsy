@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
 
   def show
     @processed_order = Order.find(params[:id])
-
+    @total = @processed_order.get_total
   end
 
   def update
