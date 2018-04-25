@@ -36,7 +36,11 @@
   </article>
 
   <article>
-      <p>see orders</p>
+      <p>Orders: <%= @orders.count %></p>
+
+      <% @orders.each do |order| %>
+      <%= order.class %>
+      <% end %>
   </article>
 </section>
 <% end %>

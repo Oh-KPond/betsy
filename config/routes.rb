@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     resources :products, only: [:new, :create, :edit, :update]
   end
 
+  patch "/users/:user_id/products/:id/edit", to: "product#update", as: "edit_user_product_path"
   get "/product/:id", to: "products#show", as: "product"
   get "/products", to: "products#index"
 

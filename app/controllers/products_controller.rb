@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  def create    
+  def create
     @product = Product.create(product_params)
 
     if @product.save
@@ -48,13 +48,14 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @merchant = User.find_by(id: params[:id])
-    if @merchant != @user
-      flash[:status] = :error
-      flash[:result_text] = "Need permission to do that!"
-      redirect_back fallback_location: root_path
-    end
+    # @merchant = User.find_by(id: params[:id])
+    # if @merchant != @user
+    #   flash[:status] = :error
+    #   flash[:result_text] = "Need permission to do that!"
+    #   redirect_back fallback_location: root_path
+    # end
     @product = Product.find_by(id: params[:id])
+    raise
   end
 
   def update
