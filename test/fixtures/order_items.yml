@@ -2,10 +2,10 @@
 
 one:
   quantity: 1
-  order: order_one
+  order: one
   product: cat
 
 two:
   quantity: 1
-  order: order_two
+  order: two
   product: dog
