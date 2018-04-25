@@ -4,8 +4,7 @@ class ReviewsController < ApplicationController
 
   def new
     if session[:user_id] == @product.user_id
-      flash[:status] = :failure
-      flash[:result_text] = "You cant review your product"
+      flash[:message] = "You cant review your product"
       redirect_to products_path
       return
     else
@@ -20,9 +19,9 @@ class ReviewsController < ApplicationController
       review_params
     )
     if @review.save
-      flash[:status] = :success
-      flash[:result_text] = "Successfully reviewed #{@product.name}"
+      flash[:result_text] = "Successfully reviewed!"
       redirect_to product_path(@product.id)
+
     else
       render :new, status: :bad_request
     end
