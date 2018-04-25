@@ -8,4 +8,17 @@ class OrderItem < ApplicationRecord
     sub_total = product.price * self.quantity
     return sub_total
   end
+
+  def already_exists?
+    this_id = self.product_id
+    order = Order.find(self.order_id)
+
+    order.order_items.each do |item|
+      if item.product_id = this_id
+        return true
+      end
+    end
+
+    return false
+  end
 end
