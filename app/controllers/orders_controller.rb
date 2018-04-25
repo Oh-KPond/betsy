@@ -28,6 +28,8 @@ class OrdersController < ApplicationController
     else
       @order = session[:guest_order]
     end
+    @processed_order = Order.find(params[:id])
+    @total = @processed_order.get_total
   end
 
   def update
@@ -47,9 +49,11 @@ class OrdersController < ApplicationController
         product.change_stock(item.quantity)
       end
 
+      processed_order_id = @order.id
+
       make_new_order
 
-      redirect_to root_path
+      redirect_to order_path(params[:id])
     else
       flash.now[:alert] = @order.errors
       render :new
