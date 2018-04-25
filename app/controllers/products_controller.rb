@@ -20,6 +20,7 @@ class ProductsController < ApplicationController
   end
 
   def index
+    @categories= Category.all
     @products = Product.all
     find_order
     @orders_products = @order.order_items.new
