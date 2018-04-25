@@ -53,7 +53,12 @@
                   <% @product.reviews.each do |review| %>
                   <section>
                     <p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
-                    <p>Reviewed by: <%= @user.username%></p>
+                    <% if @user %>
+                    <p><p>Reviewed by: <%= @user.username %></p>
+                    <% else %>
+                    <p>Reviewed by: Guest </p>
+                    </p>
+                    <% end %>
                     <p>Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
                     <p>Review: "<%= review.text_review %>"</p>
                   </section>
