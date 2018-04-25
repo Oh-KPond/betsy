@@ -1,23 +1,10 @@
 class ProductsController < ApplicationController
 
   def new
-    @merchant = User.find_by(id: params[:id])
-    if @merchant != @user
-      flash[:status] = :error
-      flash[:result_text] = "Need permission to do that!"
-      redirect_back fallback_location: root_path
-    end
     @product = Product.new
   end
 
   def create
-    @merchant = User.find_by(id: params[:id])
-    if @merchant != @user
-      flash[:status] = :error
-      flash[:result_text] = "Need permission to do that!"
-      redirect_back fallback_location: root_path
-    end
-
     @product = Product.create(product_params)
 
     if @product.save
