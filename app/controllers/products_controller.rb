@@ -1,11 +1,23 @@
 class ProductsController < ApplicationController
-  before_action :product_permission, except: [:show, :index]
 
   def new
+    @merchant = User.find_by(id: params[:id])
+    if @merchant != @user
+      flash[:status] = :error
+      flash[:result_text] = "Need permission to do that!"
+      redirect_back fallback_location: root_path
+    end
     @product = Product.new
   end
 
   def create
+    @merchant = User.find_by(id: params[:id])
+    if @merchant != @user
+      flash[:status] = :error
+      flash[:result_text] = "Need permission to do that!"
+      redirect_back fallback_location: root_path
+    end
+
     @product = Product.create(product_params)
 
     if @product.save
@@ -44,6 +56,12 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    @merchant = User.find_by(id: params[:id])
+    if @merchant != @user
+      flash[:status] = :error
+      flash[:result_text] = "Need permission to do that!"
+      redirect_back fallback_location: root_path
+    end
     @product = Product.find_by(id: params[:id])
   end
 
@@ -60,15 +78,6 @@ class ProductsController < ApplicationController
   private
   def product_params
     params.require(:product).permit(:name, :stock, :price, :description, :status, :user_id, :image_url, category_ids:[])
-  end
-
-  def product_permission
-    @merchant = User.find_by(id: params[:id])
-    if @merchant != @user
-      flash[:status] = :error
-      flash[:result_text] = "Need permission to do that!"
-      redirect_back fallback_location: root_path
-    end
   end
 
 end
