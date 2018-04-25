@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
   def index
+    @orders = Order.all
   end
 
   def create
@@ -22,6 +23,11 @@ class OrdersController < ApplicationController
   end
 
   def show
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = session[:guest_order]
+    end
     @processed_order = Order.find(params[:id])
     @total = @processed_order.get_total
   end

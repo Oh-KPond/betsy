@@ -1,7 +1,11 @@
 class ProductsController < ApplicationController
 
   def new
-    @product = Product.new
+    if @user
+      @product = Product.new
+    else
+      redirect_to root_path
+    end
   end
 
   def create
@@ -25,6 +29,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    @merchant = User.find_by(id: @product.user_id)
 
     if @product.nil?
       redirect_to products_path
@@ -40,7 +45,14 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    # @merchant = User.find_by(id: params[:id])
+    # if @merchant != @user
+    #   flash[:status] = :error
+    #   flash[:result_text] = "Need permission to do that!"
+    #   redirect_back fallback_location: root_path
+    # end
     @product = Product.find_by(id: params[:id])
+    # raise
   end
 
   def update
@@ -62,4 +74,5 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :stock, :price, :description, :status, :user_id, :image_url, category_ids:[])
   end
+
 end

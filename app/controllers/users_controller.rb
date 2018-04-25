@@ -5,8 +5,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    id = params[:id]
-    @user = User.find(id)
+    @merchant = User.find_by(id: params[:id])
+    @products = Product.by_merchant(@merchant.id)
+    @orders = Order.by_merchant_items(@merchant.id)
   end
 
   def update

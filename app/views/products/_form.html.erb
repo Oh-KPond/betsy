@@ -1,5 +1,5 @@
 <section>
-  <%= form_for @product do |f| %>
+  <%= form_for @product, url: destination do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
 
@@ -9,7 +9,7 @@
   <%= f.label :stock %>
   <%= f.text_field :stock %>
 
-  <%= f.label :status %>
+  <%= f.label :available_to_purchase? %>
   <%= f.select :status, ["true", "false"] %>
 
   <%= f.label :description %>
