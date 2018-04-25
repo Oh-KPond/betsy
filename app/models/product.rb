@@ -26,4 +26,13 @@ class Product < ApplicationRecord
   end
 
 
+  def change_stock(quantity)
+    total = self.stock
+    number = total - quantity
+    self.stock = number
+    self.save
+
+  end
+
+
 end
