@@ -10,7 +10,7 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.create(category_params)
-    raise
+    
 
     if @category.save
       flash[:success] = "Category created"

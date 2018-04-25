@@ -2,12 +2,10 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @category = Category.new
-
-
   end
 
   def create
+
     @product = Product.create(product_params)
     @category = Category.new
 
