@@ -26,6 +26,14 @@
    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
  </div>
 
+ <%= form_for @category do |f| %>
+ <%= f.label :name %>
+ <%= f.text_field :name %>
+
+ <%= f.submit class: "button"%>
+ <% end %>
+
+
   <%= f.submit class: "button" %>
   <% end %>
 </section>
