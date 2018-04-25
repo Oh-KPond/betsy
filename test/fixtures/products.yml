@@ -6,7 +6,7 @@ cat:
     price: 500.00
     description: Excellent company on a rainy day
     status: true
-    user_id: ada
+    user_id: ada.id
     image_url: https://placebear.com/g/500/400
 dog:
     name: Cavalier King Charles Spaniel
@@ -14,7 +14,7 @@ dog:
     price: 2750.00
     description: Each and every one is a unique princess
     status: false
-    user_id: grace
+    user_id: grace.id
     image_url: https://placebear.com/g/500/400
 dragon:
     name: Norweigan Ridgeback
@@ -22,5 +22,5 @@ dragon:
     price: 25000.00
     description: Very Rare; in excellent health
     status: true
-    user_id: gretchen
+    user_id: gretchen.id
     image_url: https://placebear.com/g/500/400

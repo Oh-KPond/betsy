@@ -3,4 +3,5 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true, length: { maximum: 30, too_long: "Name must be shorter than 30 characters."
   }
+
 end
