@@ -1,10 +1,14 @@
 class ProductsController < ApplicationController
 
   def new
-    @product = Product.new
+    if @user
+      @product = Product.new
+    else
+      redirect_to root_path
+    end
   end
 
-  def create
+  def create    
     @product = Product.create(product_params)
 
     if @product.save
@@ -28,6 +32,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by(id: params[:id])
+    @merchant = User.find_by(id: @product.user_id)
 
     if @product.nil?
       redirect_to products_path

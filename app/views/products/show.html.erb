@@ -12,6 +12,7 @@
 
         <section class ="product-info">
           <h2><%= @product.name %></h2>
+          <h3>By <%= link_to @merchant.username, user_path(@merchant.id) %></h3>
           <p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %>
             (<%= @product.reviews.count %>)</p>
 
