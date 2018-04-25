@@ -2,43 +2,43 @@ require "test_helper"
 
 describe SessionsController do
 
-  it "logs in an existing merchant and redirect to root_path" do
+  it "logs in an existing user and redirect to root_path" do
     @user = users(:ada)
     start_count = User.count
     login(@user, :github)
     User.count.must_equal start_count
-    must_redirect_to user_path(@user.id)
+    must_redirect_to root_path
     session[:user_id].must_equal @user.id
   end
 
   it "must have a username" do
-    @merchant = merchants(:sappy1)
-    login(@merchant, :github)
-    @merchant.username.must_equal "sappy1"
+    @user = users(:ada)
+    login(@user, :github)
+    @user.username.must_equal "countess_ada"
   end
 
   it "logs in a new user" do
-    @merchant = Merchant.new(oauth_provider: "github", oauth_uid: 9999, username: "toolazytomakeone", email: "toolazytomakeone@gmail.com")
+    @user = User.new(provider: "github", uid: 12345, username: "cool", email: "cool@gmail.com")
 
-    proc {login(@merchant, :github)}.must_change 'Merchant.count', +1
+    proc {login(@user, :github)}.must_change 'User.count', +1
 
-    merchant = Merchant.find_by(username: "toolazytomakeone")
+    user = User.find_by(username: "cool")
 
-    must_redirect_to merchant_path(merchant.id)
-    session[:merchant_id].must_equal Merchant.find_by(username: "toolazytomakeone").id
+    must_redirect_to user_path(user.id)
+    session[:user_id].must_equal User.find_by(username: "cool").id
   end
 
   it "clears the session and redirects back to the root path when a merchant logs out" do
-    @merchant = merchants(:sappy1)
-    login(@merchant, :github)
+    @user = users(:ada)
+    login(@user, :github)
     post logout_path
-    session[:merchant_id].must_equal nil
+    session[:user_id].must_equal nil
     must_redirect_to root_path
   end
 
-  it "notifies ther merchant after it logs out" do
-    @merchant = merchants(:sappy1)
-    login(@merchant, :github)
+  it "notifies the user after it logs out" do
+    @user = users(:ada)
+    logout(@user, :github)
     post logout_path
     flash[:status].must_equal :success
     flash[:result_text].must_equal "You successfully logged out."

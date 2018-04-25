@@ -25,5 +25,34 @@ Minitest::Reporters.use!(
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
+  class ActiveSupport::TestCase
+  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+  fixtures :all
+  def setup
+    OmniAuth.config.test_mode = true
+  end
+
+  def login(user, provider)
+    OmniAuth.config.mock_auth[provider] = OmniAuth::AuthHash.new(mock_auth_hash(user))
+    get auth_callback_path(provider)
+
+  end
+  def logout(user, provider)
+    OmniAuth.config.mock_auth[provider] = OmniAuth::AuthHash.new(mock_auth_hash(user))
+    delete auth_callback_path(provider)
+
+  end
+
+  def mock_auth_hash(user)
+    return {
+      provider: user.provider,
+      uid: user.uid,
+      info: {
+        email: user.email,
+        nickname: user.username
+      }
+    }
+  end
+end
   # Add more helper methods to be used by all tests here...
 end
