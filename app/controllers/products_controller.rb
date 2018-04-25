@@ -55,7 +55,7 @@ class ProductsController < ApplicationController
     #   redirect_back fallback_location: root_path
     # end
     @product = Product.find_by(id: params[:id])
-    raise
+    # raise
   end
 
   def update

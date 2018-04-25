@@ -19,7 +19,7 @@
           </p>
           <p class="card-section">
             <% if @merchant == @user %>
-            <%= link_to "Edit #{product.name}", edit_user_product_path(@user.id), class: "button" %>
+            <%= link_to "Edit #{product.name}", edit_user_product_path(@user.id, product.id), class: "button" %>
             <% end %>
           </p>
         </section>
