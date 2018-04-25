@@ -1,4 +1,5 @@
 class ProductsController < ApplicationController
+  before_action :product_permission, except: [:show, :index]
 
   def new
     @product = Product.new
@@ -60,4 +61,14 @@ class ProductsController < ApplicationController
   def product_params
     params.require(:product).permit(:name, :stock, :price, :description, :status, :user_id, :image_url, category_ids:[])
   end
+
+  def product_permission
+    @merchant = User.find_by(id: params[:id])
+    if @merchant != @user
+      flash[:status] = :error
+      flash[:result_text] = "Need permission to do that!"
+      redirect_back fallback_location: root_path
+    end
+  end
+
 end
