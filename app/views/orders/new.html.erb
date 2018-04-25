@@ -11,6 +11,10 @@
       <%= f.number_field :quantity, value: item.quantity, min: 1, max: product.stock %>
         <%= f.submit "Update Quantity" %>
     <% end %> </li>
+    
+  <li>  <%= form_for item, url: order_item_path(item.id), method: :delete do |f| %>
+        <%= f.submit "Delete Item" %>
+    <% end %> </li>
   </ul>
 <% end %>
 
