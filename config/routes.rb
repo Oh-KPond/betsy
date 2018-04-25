@@ -7,10 +7,8 @@ Rails.application.routes.draw do
 
   resources :users
   resources :orders
-  resources :products, except: [:new, :create, :edit, :update]
   resources :categories
   resources :order_items
-  # resources :reviews
 
 
   get "/auth/github", as: 'github_login'
@@ -20,8 +18,10 @@ Rails.application.routes.draw do
     resources :products, only: [:new, :create, :edit, :update]
   end
 
-  resources :products do
-    resources :reviews, only: [:new, :create]
-  end
+  get "/product/:id", to: "products#show", as: "product"
+  get "/products", to: "products#index"
 
+
+  post "/product/:product_id/reviews", to: "reviews#create", as: "product_reviews"
+  get "/products/:product_id/reviews/new", to: "reviews#new", as: "new_product_review"
 end
