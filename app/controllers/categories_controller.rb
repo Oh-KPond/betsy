@@ -10,14 +10,14 @@ class CategoriesController < ApplicationController
 
   def create
     @category = Category.create(category_params)
-    
+
 
     if @category.save
       flash[:success] = "Category created"
-      redirect_to new_product_path
+      redirect_to new_user_product_path(@user)
     else
       flash[:error] = "Category could not be created"
-      redirect_back(fallback_location: new_product_path)
+      redirect_back(fallback_location: new_user_product_path(@user))
     end
   end
 
