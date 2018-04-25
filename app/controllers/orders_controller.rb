@@ -23,15 +23,11 @@ class OrdersController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
     if @user
       @order = Order.find(session[:user_open_order_id])
     else
       @order = session[:guest_order]
     end
-=======
-
->>>>>>> a5261b3d2336b563803dfc0ccd41d028a7e4df32
   end
 
   def update
@@ -50,7 +46,7 @@ class OrdersController < ApplicationController
         product = Product.find(item.product_id)
         product.change_stock(item.quantity)
       end
-      
+
       make_new_order
 
       redirect_to root_path
