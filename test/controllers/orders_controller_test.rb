@@ -30,42 +30,49 @@ describe OrdersController do
 
 
 
-  describe "create" do
-    it "creates a order with valid data" do
-      new_order_hash = {
-        name: "Three-Toed Sloth",
-        stock: 6,
-        price: 2800,
-        description: "Chill, mellow, and mindful being. Great mediation partner.",
-        status: true,
-        user_id: 999,
-        image_url: "https://placebear.com/g/500/400"
+  describe "update" do
+    it "updates an order with valid data" do
+      order = orders(:open)
+
+      order_info = {
+      name_on_card: "Bunny",
+      cc_num: "1234567",
+      cvv: 121,
+      email: "hello@hi.org",
+      street_address: "111 Candy Cane Lane",
+      state: "NP",
+      city: "Santa",
+      zip: 54321,
+      status: "paid"
       }
 
       proc   {
-        post orders_path, params: { new_order: new_order_hash }
-      }.must_change 'Order.count', 1
+        put order_path(order.id), params: { order: order_info }
+      }.must_change 'Order.where(status: "paid").count', 1
 
-      order = Order.find_by(name: "Three-Toed Sloth")
 
       must_respond_with :redirect
-      must_redirect_to order_path(order.id)
+      must_redirect_to root_path
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
+      order = orders(:open)
+
       bad_order_hash = {
-        name: "Three-Toed Sloth",
-        stock: 6,
-        price: 2800,
-        description: "Chill, mellow, and mindful being. Great mediation partner.",
-        status: true,
-        user_id: 999,
-        image_url: "https://placebear.com/g/500/400"
+        status: "paid",
+        name_on_card: nil,
+        cc_num: "1234",
+        cvv: 123,
+        email: "apple@apple.apple",
+        street_address: "123 Phinney",
+        state: "KS",
+        city: "Kansas",
+        zip: 11111
       }
 
       proc   {
-        post orders_path, params: { order: bad_order_hash }
-      }.must_change 'Order.count', 0
+        put order_path(order.id), params: { order: bad_order_hash }
+      }.must_change 'Order.where(status: "paid").count', 0
 
       must_respond_with :bad_request
     end

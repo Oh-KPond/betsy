@@ -20,30 +20,26 @@ class ProductsController < ApplicationController
   end
 
   def index
+    @categories= Category.all
     @products = Product.all
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = Order.find(session[:guest_order_id])
-    end
+    find_order
     @orders_products = @order.order_items.new
   end
 
   def show
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = session[:guest_order]
-    end
     @product = Product.find_by(id: params[:id])
-
-    @order_item = OrderItem.new(product_id: @product.id)
-
 
     if @product.nil?
       redirect_to products_path
     end
 
+    if @user
+      @order = Order.find(session[:user_open_order_id])
+    else
+      @order = session[:guest_order]
+    end
+
+    @order_item = OrderItem.new(product_id: @product.id)
   end
 
   def edit
