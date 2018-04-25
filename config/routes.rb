@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   get "/auth/github", as: 'github_login'
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
+  get 'sessions/create'
 
   resources :products do
     resources :reviews, only: [:new, :create]
