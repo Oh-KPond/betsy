@@ -2,6 +2,7 @@ require "test_helper"
 require 'pry'
 
 describe OrdersController do
+
   describe "index" do
 
     it "should get index" do
@@ -50,9 +51,9 @@ describe OrdersController do
         put order_path(order.id), params: { order: order_info }
       }.must_change 'Order.where(status: "paid").count', 1
 
-
+      order.status.must_equal "paid"
       must_respond_with :redirect
-      must_redirect_to root_path
+      must_redirect_to order_path(order.id)
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
@@ -78,6 +79,28 @@ describe OrdersController do
     end
 
     it "reduces the quantity of each product on the order" do
+      order = orders(:open)
+      product = products(:cat)
+      product.stock = 10
+      item = OrderItem.create(product_id: product.id, order_id: order.id, quantity: 5)
+
+
+      order_info = {
+      name_on_card: "Bunny",
+      cc_num: "1234567",
+      cvv: 121,
+      email: "hello@hi.org",
+      street_address: "111 Candy Cane Lane",
+      state: "NP",
+      city: "Santa",
+      zip: 54321,
+      status: "paid"
+      }
+
+      proc   {
+        put order_path(order.id), params: { order: order_info }
+
+      }.must_change 'product.stock', -5
 
 
     end

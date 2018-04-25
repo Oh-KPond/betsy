@@ -46,7 +46,7 @@ class OrdersController < ApplicationController
       processed_order_id = @order.id
       make_new_order
 
-      redirect_to order_path(processed_order_id)
+      redirect_to order_path(params[:id])
     else
       flash.now[:alert] = @order.errors
       render :new
