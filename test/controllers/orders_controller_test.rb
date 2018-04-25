@@ -76,12 +76,17 @@ describe OrdersController do
 
       must_respond_with :bad_request
     end
+
+    it "reduces the quantity of each product on the order" do
+
+
+    end
   end
 
 
   describe "show" do
     it "succeeds for an extant order ID" do
-      order = orders(:one)
+      order = orders(:order_one)
 
       get order_path(order.id)
       must_respond_with :success

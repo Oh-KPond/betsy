@@ -1,2 +1,11 @@
 <h1>Orders#show</h1>
-<p>Find me in app/views/orders/show.html.erb</p>
+
+  <% @processed_order.order_items.each do |item| %>
+    <% product = Product.find(item.product_id) %>
+    <h1> <%= product.name %> </h1>
+   <ul>
+     <li> Price per unit: <%= product.price %> </li>
+     <li> Quantity: <%= item.quantity %></li>
+     <li> Subtotal: $<%= (product.price * item.quantity) %></li>
+   </ul>
+  <% end %>
