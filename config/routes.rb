@@ -20,6 +20,7 @@ Rails.application.routes.draw do
     resources :products, only: [:new, :create, :edit, :update]
   end
 
+
   get "/product/:id", to: "products#show", as: "product"
   get "/products", to: "products#index"
 
