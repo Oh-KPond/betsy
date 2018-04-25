@@ -1,23 +1,32 @@
+require 'pry'
 class OrderItemsController < ApplicationController
 
   def create
     find_order
     @order_item = @order.order_items.new(order_item_params)
     @order_item.order_id = @order.id
-    @order_item.save
 
-
-
-    redirect_to new_order_path
+    if @order_item.save
+      flash[:success] = "Added to cart"
+      redirect_to new_order_path
+    else
+      flash[:error] = "Product not added to cart"
+      redirect_back(fallback_location: new_order_path)
+    end
   end
 
   def update
     @order = find_order
     order_item = OrderItem.find(params[:id])
     new_quantity = params[:quantity][:quantity]
-    order_item.update(quantity: new_quantity)
 
-    redirect_to new_order_path
+    if order_item.update(quantity: new_quantity)
+      flash[:success] = "Quantity updated"
+      redirect_to new_order_path
+    else
+      flash[:error] = "Quantity could not be updated"
+      redirect_back(fallback_location: new_order_path)
+    end
   end
   #
   # def destroy
