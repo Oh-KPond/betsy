@@ -1,10 +1,7 @@
 class SessionsController < ApplicationController
 
-  def new
-  end
 
   def create
-    
     auth_hash = request.env['omniauth.auth']
 
     if auth_hash['uid']
@@ -36,12 +33,10 @@ class SessionsController < ApplicationController
       flash[:error] = "Logging in through GitHub not successful"
       redirect_to root_path
     end
-
-
   end
 
 
-  def destroy
+  def logout
     session[:user_id] = nil
     flash[:success] = "Successfully logged out!"
 
