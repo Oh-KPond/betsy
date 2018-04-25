@@ -1,6 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-order_one:
+one:
   status: pending
   name_on_card: Ada Lovelace
   cc_num: 1234
@@ -11,7 +11,7 @@ order_one:
   city: Seattle
   zip: 98104
 
-order_two:
+two:
   status: paid
   name_on_card: Gretchen Greps
   cc_num: 4321
