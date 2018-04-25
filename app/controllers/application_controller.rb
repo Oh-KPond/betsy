@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
     @categories = Category.all
   end
 
+  def render_404
+    # DPR: this will actually render a 404 page in production
+    raise ActionController::RoutingError.new('Not Found')
+  end
+
   # if user is logged in, return current_user, else return guest_user
   def find_session
     find_user

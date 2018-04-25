@@ -10,13 +10,10 @@ class ProductsController < ApplicationController
     @category = Category.new
 
     if @product.save
-      # flash[:status] = :success
-      # flash[:result_text] = "Successfully created #{@product.name}"
+      flash[:result_text] = "Successfully created #{@product.name}"
       redirect_to products_path
     else
-      # flash[:status] = :failure
-      # flash[:result_text] = "Could not create #{@product.name}"
-      # flash[:messages] = @product.errors.messages
+      flash[:result_text] = "Could not create #{@product.name}"
       render :new, status: :bad_request
     end
   end
@@ -51,9 +48,14 @@ class ProductsController < ApplicationController
   def update
     @product = Product.find_by(id: params[:id])
     if @product.update(product_params)
+      flash[:status] = :success
+      flash[:result_text] = "Successfully updated #{@product.name}"
       redirect_to products_path
     else
-      render :edit
+      flash.now[:status] = :failure
+      flash.now[:result_text] = "Could not update #{@product.name}"
+      flash.now[:messages] = @product.errors.messages
+      render :edit, status: :not_found
     end
   end
 
