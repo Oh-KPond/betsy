@@ -14,6 +14,15 @@ class Product < ApplicationRecord
     return reviews.average(:rating).to_i
   end
 
+  def self.available
+    Product.where(status: true)
+  end
+
+  def self.sorted
+    available.order(:name)
+  end
+
+
   def self.by_category(category)
     assigned = Product.where.not(category: [])
     selected = assigned.select {|product| product.categories.include?(category)}
@@ -31,7 +40,6 @@ class Product < ApplicationRecord
     number = total - quantity
     self.stock = number
     self.save
-
   end
 
 

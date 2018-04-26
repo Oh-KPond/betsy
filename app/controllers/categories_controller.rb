@@ -23,7 +23,7 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find_by(id: params[:id])
-    @products = @category.products
+    @products = @category.get_products
   end
 
   private

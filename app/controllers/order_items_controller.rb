@@ -2,15 +2,22 @@ class OrderItemsController < ApplicationController
 
   def create
     find_order
-    @order_item = @order.order_items.new(order_item_params)
-    @order_item.order_id = @order.id
+    p_id = params[:order_item][:product_id]
 
-    if @order_item.save
-      flash[:success] = "Added to cart"
+    if @order.order_items.where(product_id: p_id).length != 0
+      flash[:error] = "Product already exists in cart"
       redirect_to new_order_path
     else
-      flash[:error] = "Product not added to cart"
-      redirect_back(fallback_location: new_order_path)
+      @order_item = @order.order_items.new(order_item_params)
+      @order_item.order_id = @order.id
+
+      if @order_item.save
+        flash[:success] = "Added to cart"
+        redirect_to new_order_path
+      else
+        flash[:error] = "Product not added to cart"
+        redirect_back(fallback_location: new_order_path)
+      end
     end
   end
 

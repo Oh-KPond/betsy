@@ -12,6 +12,28 @@ class User < ApplicationRecord
     )
   end
 
-  
+  def get_order_items
+    my_items = self.products
+
+    mine = []
+    my_items.each do |product|
+      mine << product.order_items
+    end
+    return mine
+  end
+
+  def get_total_revenue
+    mine = get_order_items
+
+    total = 0
+
+    mine.each do |o_items|
+      o_items.each do |item|
+      total += item.product.price * item.quantity
+    end
+    end
+    return total
+  end
+
 
 end
