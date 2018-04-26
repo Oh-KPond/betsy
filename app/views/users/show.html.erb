@@ -36,11 +36,20 @@
   </article>
 
   <article>
-      <p>Orders: <%= @orders.count %></p>
-
-      <% @orders.each do |order| %>
-      <%= order.order_values %>
+  <p>Orders: <%= @orders.count %></p>
+  <p><ul>
+      <% @orders.each do |sub_order| %>
+        <li>Order Id: <%= sub_order.id %></li>
+        <li>Status: <%= sub_order.status %></li>
+        <ul>
+          <% sub_order.order_items.each do |item| %>
+            <li>Animal: <%= item.product.name %></li>
+            <li>Quantity: <%= item.quantity %></li>
+            <% end %>
+        </ul>
+      </ul>
       <% end %>
-  </article>
-</section>
+    </p>
+    </article>
+  </section>
 <% end %>
