@@ -9,7 +9,9 @@ class ProductsController < ApplicationController
   end
 
   def create
+
     @product = Product.create(product_params)
+    @category = Category.new
 
     if @product.save
       flash[:result_text] = "Successfully created #{@product.name}"

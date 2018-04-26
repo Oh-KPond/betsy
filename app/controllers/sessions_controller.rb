@@ -36,7 +36,7 @@ class SessionsController < ApplicationController
   end
 
 
-  def logout
+  def destroy
     session[:user_id] = nil
     flash[:success] = "Successfully logged out!"
 
