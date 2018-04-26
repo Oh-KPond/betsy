@@ -39,7 +39,7 @@
       <p>Orders: <%= @orders.count %></p>
 
       <% @orders.each do |order| %>
-      <%= order.class %>
+      <%= order.order_values %>
       <% end %>
   </article>
 </section>
