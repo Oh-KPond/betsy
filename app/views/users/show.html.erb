@@ -53,7 +53,7 @@
           <ul>
             <% sub_order.order_items.each do |item| %>
             <% if item.product.user_id == @user.id %>
-            <li>Animal: <%= item.product.name %></li>
+            <li>Creature: <%= item.product.name %></li>
             <li>Quantity: <%= item.quantity %></li>
             <li>Price: $<%= item.product.price * item.quantity %></li>
             <% end %>
