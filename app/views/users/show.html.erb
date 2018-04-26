@@ -43,9 +43,9 @@
       <p>Total Revenue: $<%= @merchant.get_total_revenue %></p>
     </article>
 
-    <article class="gray-box">
+    <article class="merchant-private">
       <h3>Order Console</h3>
-      <p>
+      <article>
         <% @orders.each do |sub_order| %>
         <ul>
           <li><h5><%= link_to "Order #{sub_order.id}", order_path(sub_order) %></h5></li>
@@ -62,7 +62,7 @@
             </ul>
         </ul>
         <% end %>
-      </p>
+      </article>
       </article>
     </section>
   <% end %>
