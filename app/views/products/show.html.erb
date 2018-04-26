@@ -7,12 +7,14 @@
   <section id = "show-page-content">
     <section class = "show-product-view">
       <article class="block1">
+        <div class="product-image-box">
         <%= image_tag(@product.image_url) %>
-
-
-        <section class ="product-info">
+        <h4> Description </h4>
+          <p><%= @product.description %></p>
+</div>
+    <div class="product-info-box">    <section class ="product-info">
           <h2><%= @product.name %></h2>
-          <h3>By <%= link_to @merchant.username, user_path(@merchant.id) %></h3>
+          <h4>By <%= link_to @merchant.username, user_path(@merchant.id) %></h4>
           <p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %>
             (<%= @product.reviews.count %>)</p>
 
@@ -28,8 +30,7 @@
             <p><span class="grey">Out of Stock</span></p>
             <% end %>
             <% end %>
-            <p> Description:
-              <%= @product.description %></p>
+
 
 
 
@@ -44,7 +45,7 @@
               <%end%>
 
             </div>
-
+  </article>
 
             <div class="review row">
               <section class = "show-product-review">
@@ -64,6 +65,5 @@
                   </section>
                   <% end %>
                   <%= link_to "Write a Review", new_product_review_path(@product.id), class: " button" %>
-                </article>
 
               </div>

@@ -101,3 +101,15 @@
   background-color: transparent;
   max-height: 20vh;
 }
+
+// section.show-product-view {
+//   display: inline-block;
+// }
+
+
+article.block1 {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
