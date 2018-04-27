@@ -29,37 +29,38 @@ describe CategoriesController do
   describe "create" do
     it "creates a product with valid data" do
       Category.count.must_equal 3
-      # user = User.first
-      # login(user)
+
+      user = users(:ada)
+      login(user, :github)
 
       category_params = {
-        name: "Dangerous"
+        name: "orange"
       }
 
       Category.new(category_params).must_be :valid?
 
-      # post categories_path, params: {category: category_params}
-      # must_respond_with :redirect
-      # must_redirect_to user_path(user.id)
-      # Category.count.must_equal 4
+      post categories_path, params: {category: category_params}
+      must_respond_with :redirect
+      must_redirect_to user_path(user.id)
+      Category.count.must_equal 4
     end
 
 
-    # it "does not create a product with invalid data" do
-    #   Category.count.must_equal 3
-    #   user = users(:ada)
-    #   login(user)
-    #   category_params = {
-    #     name: ""
-    #   }
-    #
-    #   Category.new(category_params).must_be :valid?
-    #
-    #   post categories_path, params: {category: category_params}
-    #   must_respond_with :redirect
-    #   must_redirect_to user_path(user.id)
-    #   Category.count.must_equal 3
-    # end
+    it "does not create a product with invalid data" do
+      Category.count.must_equal 3
+      user = users(:ada)
+      login(user, :github)
+      category_params = {
+        name: ""
+      }
+
+      Category.new(category_params).wont_be :valid?
+
+      post categories_path, params: {category: category_params}
+      must_respond_with :redirect
+      must_redirect_to user_path(user.id)
+      Category.count.must_equal 3
+    end
 
   end
 
