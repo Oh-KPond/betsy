@@ -17,4 +17,13 @@ describe OrderItem do
       order_item.get_subtotal.must_equal sum
     end
   end
+
+  describe "already_exists" do
+    it "returns true if product is already in pending order" do
+      order = orders(:one)
+      second = OrderItem.new(product_id: products(:cat).id, order_id: orders(:one).id, quantity: 2)
+
+      second.already_exists?.must_equal true
+    end
+  end
 end
