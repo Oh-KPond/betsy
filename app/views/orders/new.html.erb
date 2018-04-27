@@ -1,23 +1,24 @@
-<h1>My Cart</h1>
-<%= image_tag(@order_item.image_url) %>
-<% @order.order_items.each do |item| %>
+<section class="my-cart"><h1>My Cart</h1>
+
+
+<div class:"product-name"<% @order.order_items.each do |item| %>
     <% id = item.product_id %>
     <% product = Product.find(id) %>
-  <%= product.name %>
-  <ul>
-    <li>Price: <%= product.price %></li>
-</ul>
-   Quantity: <%= form_for :quantity, url: order_item_path(item.id), method: :put do |f| %>
-      <%= f.number_field :quantity, value: item.quantity, min: 1, max: product.stock %>
-        <%= f.submit "Update Quantity" %>
+  <%= product.name %></div
+    <li>Price:$ <%= product.price %>
+<div class="product-quantity">
+   Quantity: <div class="quantity-form"><%= form_for :quantity, url: order_item_path(item.id), method: :put do |f| %></div>
+      <%= f.number_field :quantity, value: item.quantity, min: 1, max: product.stock %></div>
+        <%= f.submit "Update Quantity", class: "button" %>
     <% end %>
-
  <%= form_for item, url: order_item_path(item.id), method: :delete do |f| %>
-        <%= f.submit "Delete Item" %>
+        <%= f.submit "Delete Item", class: "button"%>
     <% end %>
 
 <% end %>
-
+</section>
+<section class="payment-info">
 <h1>Payment Information </h1>
 
 <%= render partial: "complete_form" %>
+</section>

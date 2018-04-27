@@ -26,6 +26,8 @@
             <% if @merchant == @user %>
             <%= link_to "Edit #{product.name}", edit_user_product_path(@user.id, product.id), class: "button" %>
             <% end %>
+
+
           </p>
         </section>
       </section>
@@ -55,12 +57,17 @@
               <% if item.product.user_id == @user.id %>
               <li>Creature: <%= item.product.name %></li>
               <li>Quantity: <%= item.quantity %></li>
-              <li>Price: $<%= item.product.price * item.quantity %></li><br/>
+              <li>Price: $<%= item.product.price * item.quantity %></li>
+            <li>  <%= form_tag(change_status_path(item.id), method: "patch") do %>
+              <%= select_tag :status, options_for_select(["pending", "paid", "complete", "canceled"], item.status) %>
+              <%= submit_tag "Change Status" %>
+            <% end %></li><br/>
 
               <% end %>
               <% end %>
             </ul>
         </ul>
+
         <% end %>
       </article>
       </article>

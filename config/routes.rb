@@ -27,4 +27,6 @@ Rails.application.routes.draw do
 
   post "/product/:product_id/reviews", to: "reviews#create", as: "product_reviews"
   get "/products/:product_id/reviews/new", to: "reviews#new", as: "new_product_review"
+
+  patch 'order_items/:id/change_status', to: 'order_items#change_status', as: 'change_status'
 end
