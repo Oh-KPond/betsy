@@ -27,7 +27,7 @@ describe OrderItemsController do
 
   describe "update" do
     it "changes the quantity of the item in pending order" do
-      order = orders(:open)
+      order = orders(:one)
       product = products(:dog)
 
       item = OrderItem.create(product_id: product.id, order_id: order.id, quantity: 1)
@@ -52,9 +52,10 @@ describe OrderItemsController do
     end
 
     it "renders 404 not_found and does not update the DB for a bogus order item ID" do
-
       proc {
         delete order_item_path('abc')}.must_change 'OrderItem.count', 0
+
+        must_respond_with :bad_request
     end
 
   end

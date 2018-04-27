@@ -14,7 +14,6 @@ class OrdersController < ApplicationController
 
 
   def show
-
     if Order.exists?(id: params[:id])
       @processed_order = Order.find(params[:id])
       @total = @processed_order.get_total
