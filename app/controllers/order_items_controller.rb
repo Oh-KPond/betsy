@@ -15,8 +15,9 @@ class OrderItemsController < ApplicationController
         flash[:success] = "Added to cart"
         redirect_to new_order_path
       else
+        @products = Product.sorted
         flash[:error] = "Product not added to cart"
-        redirect_back(fallback_location: new_order_path)
+        render '/products/index', status: :bad_request
       end
     end
   end
@@ -36,13 +37,19 @@ class OrderItemsController < ApplicationController
   end
 
   def destroy
-    order_item = OrderItem.find(params[:id])
-    if order_item.destroy
-      flash[:success] = "Product removed from cart"
-      redirect_back(fallback_location: new_order_path)
+    if OrderItem.exists?(id: params[:id])
+      item = OrderItem.find(params[:id])
+      if item.destroy
+        flash[:success] = "Product removed from cart"
+        redirect_back(fallback_location: new_order_path)
+      else
+        flash[:error] = "Product was not removed from cart"
+        redirect_back(fallback_location: new_order_path)
+      end
     else
-      flash[:error] = "Product was not removed from cart"
-      redirect_back(fallback_location: new_order_path)
+      @products = Product.sorted
+      flash[:error] = "Product does not exist"
+      render '/products/index', status: :bad_request
     end
   end
 

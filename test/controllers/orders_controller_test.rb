@@ -33,11 +33,11 @@ describe OrdersController do
 
   describe "update" do
     it "updates an order with valid data" do
-      order = orders(:open)
+      new_order = orders(:one)
 
       order_info = {
       name_on_card: "Bunny",
-      cc_num: "1234567",
+      cc_num: "1234123412341234",
       cvv: 121,
       email: "hello@hi.org",
       street_address: "111 Candy Cane Lane",
@@ -48,27 +48,21 @@ describe OrdersController do
       }
 
       proc   {
-        put order_path(order.id), params: { order: order_info }
+        put order_path(new_order.id), params: { order: order_info }
       }.must_change 'Order.where(status: "paid").count', 1
 
-      order.status.must_equal "paid"
+      placed_order = Order.find_by(cc_num: 1234123412341234)
+
+      placed_order.status.must_equal "paid"
       must_respond_with :redirect
-      must_redirect_to order_path(order.id)
+      must_redirect_to order_path(placed_order.id)
     end
 
     it "renders bad_request and does not update the DB for bogus data" do
-      order = orders(:open)
+      order = orders(:one)
 
       bad_order_hash = {
-        status: "paid",
         name_on_card: nil,
-        cc_num: "1234",
-        cvv: 123,
-        email: "apple@apple.apple",
-        street_address: "123 Phinney",
-        state: "KS",
-        city: "Kansas",
-        zip: 11111
       }
 
       proc   {
@@ -79,15 +73,16 @@ describe OrdersController do
     end
 
     it "reduces the quantity of each product on the order" do
-      order = orders(:open)
-      product = products(:cat)
-      product.stock = 10
-      item = OrderItem.create(product_id: product.id, order_id: order.id, quantity: 5)
+      order = Order.create(status: "pending")
 
+      product = products(:cat)
+
+      item = OrderItem.new(product_id: product.id, order_id: order.id, quantity: 2)
+      item.save
 
       order_info = {
       name_on_card: "Bunny",
-      cc_num: "1234567",
+      cc_num: "1234123412341234",
       cvv: 121,
       email: "hello@hi.org",
       street_address: "111 Candy Cane Lane",
@@ -99,8 +94,8 @@ describe OrdersController do
 
       proc   {
         put order_path(order.id), params: { order: order_info }
-
-      }.must_change 'product.stock', -5
+        product = Product.find(item.product_id)
+      }.must_change 'product.stock', -2
 
 
     end
