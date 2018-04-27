@@ -1,11 +1,7 @@
 class ProductsController < ApplicationController
 
   def new
-    if @user
       @product = Product.new
-    else
-      redirect_to root_path
-    end
   end
 
   def create
