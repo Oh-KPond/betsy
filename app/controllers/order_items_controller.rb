@@ -46,43 +46,6 @@ class OrderItemsController < ApplicationController
     end
   end
 
-
-  def change_status
-  @order_item = OrderItem.find_by(id: params[:id])
-  unless @order_item
-    render_404
-    return
-  end
-
-  @merchant = Merchant.find_by(id: @order_item.product.merchant_id)
-  unless @merchant
-    render_404
-    return
-  end
-
-  if @merchant.id != @auth_user.id
-    flash[:status] = :failure
-    flash[:message] = "You can only make changes to your own products"
-    return redirect_to merchant_path(@auth_user)
-  end
-
-  change = @order_item.change_status(params[:status])
-
-  case change
-  when nil
-    flash[:status] = :success
-    flash[:message] = "No changes made"
-  when true
-    flash[:status] = :success
-    flash[:message] = "Status successfully changed to #{@order_item.status}"
-  when false
-    flash[:status] = :failure
-    flash[:message] = "Unable to change status"
-    flash[:details] = @order_item.errors.messages
-  end
-  redirect_to merchant_path(@merchant)
-end
-
   private
 
   def order_item_params
