@@ -74,14 +74,15 @@ describe OrdersController do
 
     it "reduces the quantity of each product on the order" do
       order = Order.create(status: "pending")
-      product = Product.create(image_url: "https://placebear.com/g/500/400", name: "ok", stock: 5, price: 10, status: true, user_id: 1000, description: "nice")
 
-      item = OrderItem.create(product_id: product.id, order_id: order.id, quantity: 2)
+      product = products(:cat)
 
+      item = OrderItem.new(product_id: product.id, order_id: order.id, quantity: 2)
+      item.save
 
       order_info = {
       name_on_card: "Bunny",
-      cc_num: "1234567",
+      cc_num: "1234123412341234",
       cvv: 121,
       email: "hello@hi.org",
       street_address: "111 Candy Cane Lane",
@@ -93,7 +94,6 @@ describe OrdersController do
 
       proc   {
         put order_path(order.id), params: { order: order_info }
-
         product = Product.find(item.product_id)
       }.must_change 'product.stock', -2
 
