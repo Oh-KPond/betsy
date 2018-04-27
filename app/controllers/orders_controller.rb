@@ -23,7 +23,7 @@ class OrdersController < ApplicationController
     if @order.save
 
       flash[:success] = "Thank you for placing your order!"
-binding.pry
+
       @order.order_items.each do |item|
         product = Product.find(item.product_id)
         product.change_stock(item.quantity)
