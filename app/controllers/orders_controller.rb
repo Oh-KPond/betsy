@@ -1,4 +1,4 @@
-require 'pry'
+
 class OrdersController < ApplicationController
   before_action :find_order
 
