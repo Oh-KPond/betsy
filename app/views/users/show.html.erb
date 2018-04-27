@@ -2,11 +2,6 @@
 
 <div class="grid-container">
   <div class="grid-x grid-padding-x small-up-2 medium-up-3 large-up-4">
-    <% if @products.length == 0 %>
-      <p>
-        No items yet!
-      </p>
-    <% else %>
     <% if @merchant == @user %>
     <section class="cell">
         <p class="merchant-new">
@@ -14,6 +9,11 @@
           <%= link_to "Add New Category", new_category_path, class: "button" %>
         </p>
     <% end %>
+    <% if @products.length == 0 %>
+      <p>
+        No items yet!
+      </p>
+    <% else %>
     </section>
       <% @products.each do |product| %>
       <section class="cell">
