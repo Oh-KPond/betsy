@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
     @order.update_attributes(update_order_params)
 
     if @order.save
-binding.pry
+
       flash[:success] = "Thank you for placing your order!"
 
       @order.order_items.each do |item|
