@@ -1,14 +1,10 @@
 <section>
-  <%= form_for @product do |f| %>
+  <%= form_for @product, url: destination do |f| %>
+
   <div>
    <%= f.label :categories %>
    <%= collection_check_boxes(:product, :category_ids, Category.all, :id, :name) %>
- </div>
- <% end %>
-
- <%= link_to "Add Category", new_category_path %>
-
-  <%= form_for @product, url: destination do |f| %>
+  </div>
 
   <%= f.label :name %>
   <%= f.text_field :name %>
@@ -30,7 +26,6 @@
 
   <%= f.label :user %>
   <%= f.text_field :user_id %>
-
 
   <%= f.submit class: "button" %>
   <% end %>

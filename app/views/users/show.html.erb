@@ -7,10 +7,13 @@
         No items yet!
       </p>
     <% else %>
+    <% if @merchant == @user %>
     <section class="cell">
         <p class="merchant-new">
           <%= link_to "Add New Product", new_user_product_path(@user.id), class: "button" %>
+          <%= link_to "Add New Category", new_category_path, class: "button" %>
         </p>
+    <% end %>
     </section>
       <% @products.each do |product| %>
       <section class="cell">
