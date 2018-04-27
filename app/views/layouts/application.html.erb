@@ -50,7 +50,7 @@
         <section class="callout <%= name %>">
           <% if name == "alert" %>
           <ul>
-            <% flash.each do |field, message| %>
+            <% flash[:alert].each do |field, message| %>
             <li>
               <strong> <%= field.capitalize %> </strong> <%= message %>
             </li>
