@@ -21,6 +21,3 @@ two:
   state: WA
   city: Seattle
   zip: 98122
-
-open:
-  status: pending

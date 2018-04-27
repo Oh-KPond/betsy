@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
         successful_save = @user.save
         if successful_save
           flash[:success] = "Logged in successfully"
-          redirect_to root_path
+          redirect_to user_path(user.id)
         else
           flash[:error] = "Some error happened in user creation"
           redirect_to root_path
@@ -38,8 +38,9 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    flash[:success] = "Successfully logged out!"
 
-    redirect_to root_path
+    flash[:success] = "Successfully logged out!"
+    redirect_back(fallback_location: root_path)
+
   end
 end
