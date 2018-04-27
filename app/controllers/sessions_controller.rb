@@ -14,14 +14,14 @@ class SessionsController < ApplicationController
         successful_save = @user.save
         if successful_save
           flash[:success] = "Logged in successfully"
-          redirect_to root_path
+          redirect_back(fallback_location: root_path)
         else
           flash[:error] = "Some error happened in user creation"
-          redirect_to root_path
+          redirect_back(fallback_location: root_path)
         end
       else
         flash[:success] = "Logged in successfully #{@user.username}"
-        redirect_to root_path
+        redirect_back(fallback_location: root_path)
       end
 
       session[:user_id] = @user.id
@@ -31,15 +31,18 @@ class SessionsController < ApplicationController
 
     else
       flash[:error] = "Logging in through GitHub not successful"
-      redirect_to root_path
+      redirect_back(fallback_location: root_path)
     end
   end
 
 
   def destroy
-    session[:user_id] = nil
-    flash[:success] = "Successfully logged out!"
-
-    redirect_to root_path
+    if session[:user_id] = nil
+      flash[:success] = "Successfully logged out!"
+      redirect_to root_path
+    else
+      flash[:alert] = "You were not successfully logged out!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 end
