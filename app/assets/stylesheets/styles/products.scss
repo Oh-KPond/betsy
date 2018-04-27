@@ -111,9 +111,27 @@ div.review-row {
 //   display: inline-block;
 // }
 
-
+div.banner {
+  text-align: center;
+  color: red;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
 article.block1 {
   display: grid;
   grid-template-columns: auto auto;
-  padding: 10px;
+  padding-bottom: 20px;
+  border-bottom-style: solid;
+  border-color: grey;
+}
+
+div.review-row {
+  padding-top: 20px;
+}
+
+
+article.reviews section {
+  border-bottom-style: solid;
+  border-color: grey;
+  padding-top: 20px;
 }

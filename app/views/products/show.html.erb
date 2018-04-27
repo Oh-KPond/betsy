@@ -13,8 +13,8 @@
           <p><%= @product.description %></p>
 </div>
     <div class="product-purchase-box">    <section class ="product-info">
-          <h2><%= @product.name %></h2>
-          <h4>By <%= link_to @merchant.username, user_path(@merchant.id) %></h4>
+          <h3><%= @product.name %></h3>
+          <h5>By <%= link_to @merchant.username, user_path(@merchant.id) %></h5>
           <p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %>
             (<%= @product.reviews.count %>)</p>
 
@@ -49,21 +49,29 @@
 
             <div class="review-row">
               <section class = "show-product-review">
-                <h4>Customer Reviews</h4><span></span>
-                <p><span>Average Rating<%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</p>
+                <article class="review-title"><div class="item1"><h4>Reviews</h4>
+                <p><span></div><div class="item2"><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</div></p></article>
+                <%= link_to "Write a Review!", new_product_review_path(@product.id), class: " button" %>
                 <article class="reviews">
                   <% @product.reviews.each do |review| %>
-                  <section>
-                    <p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
+                  <section class="user-image">
+                    <div class="image-name-box1">
+
+
+<%= image_tag("F100010726.jpg",  alt: "Little girl and her dog in a car", size: "80x80",class: "user_image") %>
                     <% if @user %>
-                    <p>Reviewed by: <%= @user.username %></p>
+                    <div class="image-user-box2"><p>Reviewed by: <%= @user.username %></p>
                     <% else %>
                     <p>Reviewed by: Guest </p>
                     <% end %>
+                  </div>
+                  </div>
+                    <div class="star-image-review-box"<p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
                     <p>Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
-                    <p>Review: "<%= review.text_review %>"</p>
+
+                    <%= image_tag(@product.image_url, alt: "review-item", size: "80x80") %>
+                    <p>Review: "<%= review.text_review %>"</p></div>
                   </section>
                   <% end %>
-                  <%= link_to "Write a Review", new_product_review_path(@product.id), class: " button" %>
 
               </div>
