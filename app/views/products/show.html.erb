@@ -50,8 +50,8 @@
             <div class="review-row">
               <section class = "show-product-review">
                 <article class="review-title"><div class="item1"><h4>Reviews</h4>
-                <p><span></div><div class="item2"><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</div></p></article>
-                <%= link_to "Write a Review!", new_product_review_path(@product.id), class: " button" %>
+                <p><span></div><div class="item2"><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)
+                <div class="leave-review-button">  <%= link_to "Write a Review!", new_product_review_path(@product.id), class: " button" %></div></div></p></article>
                 <article class="reviews">
                   <% @product.reviews.each do |review| %>
                   <section class="user-image">
@@ -62,15 +62,18 @@
                     <% if @user %>
                     <div class="image-user-box2"><p>Reviewed by: <%= @user.username %></p>
                     <% else %>
-                    <p>Reviewed by: Guest </p>
+                    <p>Reviewed by: Guest
                     <% end %>
+                    Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
                   </div>
                   </div>
-                    <div class="star-image-review-box"<p><span><%= render partial: "layouts/starrating", locals: { rating: review.rating } %></span></p>
-                    <p>Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
 
+                    <div class="star-image-review-box">
                     <%= image_tag(@product.image_url, alt: "review-item", size: "80x80") %>
-                    <p>Review: "<%= review.text_review %>"</p></div>
+                    <%= render partial: "layouts/starrating", locals: { rating: review.rating } %>
+
+
+                    <p>"<%= review.text_review %>"</p></div>
                   </section>
                   <% end %>
 
