@@ -15,6 +15,21 @@ describe OrderItemsController do
       must_redirect_to new_order_path
     end
 
+    it "does not add duplicate product to cart" do
+      product = products(:cat)
+      order = orders(:one)
+      post order_items_path, params: { order_item: { product_id: product.id, order_id: order.id, quantity: 1 } }
+
+      proc {
+        post order_items_path, params: { order_item: { product_id: product.id, order_id: order.id, quantity: 3 } }
+      }.must_change 'OrderItem.count', 0
+
+      must_respond_with :redirect
+      must_redirect_to new_order_path
+      flash[:alert].must_equal "Product already exists in cart"
+    end
+
+
     it "renders bad_request and does not update the DB for bogus data" do
 
       proc {

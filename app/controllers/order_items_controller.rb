@@ -5,7 +5,7 @@ class OrderItemsController < ApplicationController
     p_id = params[:order_item][:product_id]
 
     if @order.order_items.where(product_id: p_id).length != 0
-      flash[:error] = "Product already exists in cart"
+      flash[:alert] = "Product already exists in cart"
       redirect_to new_order_path
     else
       @order_item = @order.order_items.new(order_item_params)
@@ -16,7 +16,7 @@ class OrderItemsController < ApplicationController
         redirect_to new_order_path
       else
         @products = Product.sorted
-        flash[:error] = "Product not added to cart"
+        flash[:alert] = "Product not added to cart"
         render '/products/index', status: :bad_request
       end
     end
