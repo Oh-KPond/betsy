@@ -2,27 +2,22 @@ class Order < ApplicationRecord
   has_many :order_items
   has_many :products, through: :order_items
 
-  def self.by_merchant_items(id)
-
-    merchandise = Product.where(user_id: id)
-    # finding products that belong to the logged-in user
-
-    selected_items = []
-    merchandise.each do |merch|
-      selected_items << OrderItem.where(product_id: merch.id)
-    end
-    # loop through the products that are owned by logged in user and see if they match any of the products in any of the orders
-
-    selected_orders = []
-    selected_items.each do |join_item|
-      selected_orders << Order.where(order_id: join_item.orders)
-    end
-    # loop through orderitems that belong to logged in user to find orders that have those items in them.
-
-    return selected_orders
-
+  def self.merchant_products(id)
+    Product.where(user_id: id)
   end
 
+  def self.merchant_orders(id)
+    merchandise = merchant_products(id)
+
+    orders = []
+    merchandise.each do |item|
+      item.orders.each do |ord|
+        orders << ord
+      end
+    end
+
+    return orders.uniq
+  end
 
  def get_total
    total = 0
