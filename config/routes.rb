@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   root 'products#index', as: 'root'
 
 
-
-
   resources :users
   resources :orders
   resources :categories
@@ -13,8 +11,8 @@ Rails.application.routes.draw do
 
   get "/auth/github", as: 'github_login'
   get "/auth/:provider/callback", to: "sessions#create", as: "auth_callback"
-  # delete '/logout', to: 'sessions#destroy', as: 'logout'
-  delete "/auth/github/callback", to: "sessions#destroy", as: 'logout'
+  delete '/logout', to: 'sessions#destroy', as: 'logout'
+  # delete "/auth/github/callback", to: "sessions#destroy", as: 'logout'
 
   resources :users do
     resources :products, only: [:new, :create, :edit, :update]
