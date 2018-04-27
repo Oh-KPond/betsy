@@ -8,11 +8,11 @@
     <section class = "show-product-view">
       <article class="block1">
         <div class="product-image-box">
-        <%= image_tag(@product.image_url) %>
-        <h5> Description </h5>
+          <%= image_tag(@product.image_url) %>
+          <h5> Description </h5>
           <p><%= @product.description %></p>
-</div>
-    <div class="product-purchase-box">    <section class ="product-info">
+        </div>
+        <div class="product-purchase-box">    <section class ="product-info">
           <h3><%= @product.name %></h3>
           <h5>By <%= link_to @merchant.username, user_path(@merchant.id) %></h5>
           <p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %>
@@ -35,22 +35,22 @@
 
 
 
-              <% if @product.stock != 0 %>
-              <%= form_for @order_item do |f| %>
-              <%= f.hidden_field :product_id, value: @product.id%>
-              <%= f.label :Quantity %>
-              <%= f.select :quantity, (1..@product.stock).to_a %>
-              <%= f.submit "Add to Cart", class: "cart button"%>
-              <% end %>
-              <%end%>
+            <% if @product.stock != 0 %>
+            <%= form_for @order_item do |f| %>
+            <%= f.hidden_field :product_id, value: @product.id%>
+            <%= f.label :Quantity %>
+            <%= f.select :quantity, (1..@product.stock).to_a %>
+            <%= f.submit "Add to Cart", class: "cart button"%>
+            <% end %>
+            <%end%>
 
-            </div>
-  </article>
+          </div>
+        </article>
 
-            <div class="review-row">
-              <section class = "show-product-review">
-                <article class="review-title"><div class="item1"><h4>Reviews</h4>
-                <p><span></div><div class="item2"><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)
+        <div class="review-row">
+          <section class = "show-product-review">
+            <article class="review-title"><div class="item1"><h4>Reviews</h4>
+              <p><span></div><div class="item2"><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)
                 <div class="leave-review-button">  <%= link_to "Write a Review!", new_product_review_path(@product.id), class: " button" %></div></p></article>
                 <article class="reviews">
                   <% @product.reviews.each do |review| %>
@@ -58,23 +58,23 @@
                     <div class="image-name-box1">
 
 
-<%= image_tag("F100010726.jpg",  alt: "Little girl and her dog in a car", size: "80x80",class: "user_image") %>
+                    <%= image_tag("F100010726.jpg",  alt: "Little girl and her dog in a car", size: "80x80",class: "user_image") %>
                     <% if @user %>
                     <div class="image-user-box2"><p>Reviewed by: <%= @user.username %></p>
-                    <% else %>
-                    <p>Guest
-                    <% end %>
-                    Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
-                  </div>
+                      <% else %>
+                      <p>Guest
+                        <% end %>
+                        Reviewed on: <%= review.created_at.localtime.strftime("%d %b %Y") %></p>
+                      </div>
 
 
-                    <div class="star-image-review-box">
-                    <%= image_tag(@product.image_url, alt: "review-item", size: "80x80") %>
-                    <%= render partial: "layouts/starrating", locals: { rating: review.rating } %>  </div>
+                      <div class="star-image-review-box">
+                        <%= image_tag(@product.image_url, alt: "review-item", size: "80x80") %>
+                        <%= render partial: "layouts/starrating", locals: { rating: review.rating } %>  </div>
 
 
-                    <p>"<%= review.text_review %>"</p></div>
-                  </section>
-                  <% end %>
+                        <p>"<%= review.text_review %>"</p></div>
+                      </section>
+                      <% end %>
 
-              </div>
+                    </div>

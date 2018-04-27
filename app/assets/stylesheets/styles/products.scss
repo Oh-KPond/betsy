@@ -128,14 +128,11 @@ article.block1 {
 article.review-title {
   border-bottom-style: solid;
   border-color: grey;
-
 }
-
 
 div.review-row {
   padding-top: 20px;
 }
-
 
 article.reviews section {
   border-bottom-style: solid;
@@ -147,10 +144,16 @@ img.user_image {
   border-radius: 50px;
 }
 
-
-
 section.user-image {
   display: grid;
   grid-template-columns: auto auto;
   padding-bottom: 20px;
+}
+
+article.reviews {
+  align-items: center;
+}
+
+div.image-name-box1 {
+  align-items: right;
 }
