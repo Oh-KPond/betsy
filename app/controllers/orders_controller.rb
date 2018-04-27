@@ -1,4 +1,7 @@
+require 'pry'
 class OrdersController < ApplicationController
+  before_action :find_order
+
   def index
     @orders = Order.all
   end
@@ -7,37 +10,21 @@ class OrdersController < ApplicationController
   end
 
   def new
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = Order.find(session[:guest_order_id])
-    end
   end
 
-  def edit
-    # if @user
-    #   @order = Order.find(session[:user_open_order_id])
-    # else
-    #   @order = session[:guest_order]
-    # end
-  end
 
   def show
-    if @user
-      @order = Order.find(session[:user_open_order_id])
+
+    if Order.exists?(id: params[:id])
+      @processed_order = Order.find(params[:id])
+      @total = @processed_order.get_total
     else
-      @order = session[:guest_order]
+      find_order
+      render :new, status: :not_found
     end
-    @processed_order = Order.find(params[:id])
-    @total = @processed_order.get_total
   end
 
   def update
-    if @user
-      @order = Order.find(session[:user_open_order_id])
-    else
-      @order = Order.find(session[:guest_order_id])
-    end
 
     @order.update_attributes(update_order_params)
 
@@ -50,13 +37,11 @@ class OrdersController < ApplicationController
       end
 
       processed_order_id = @order.id
-
       make_new_order
-
-      redirect_to order_path(params[:id])
+      redirect_to order_path(processed_order_id)
     else
       flash.now[:alert] = @order.errors
-      render :new
+      render :new, status: :bad_request
     end
   end
 
