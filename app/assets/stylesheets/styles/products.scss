@@ -95,6 +95,11 @@
   overflow: scroll;
 }
 
+div.review-row {
+  align-content: right;
+
+}
+
 #product-details {
   max-height: 40vh;
   text-align:left;
@@ -109,7 +114,6 @@
 
 article.block1 {
   display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #2196F3;
+  grid-template-columns: auto auto;
   padding: 10px;
 }

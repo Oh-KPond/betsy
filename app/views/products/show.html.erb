@@ -9,10 +9,10 @@
       <article class="block1">
         <div class="product-image-box">
         <%= image_tag(@product.image_url) %>
-        <h4> Description </h4>
+        <h5> Description </h5>
           <p><%= @product.description %></p>
 </div>
-    <div class="product-info-box">    <section class ="product-info">
+    <div class="product-purchase-box">    <section class ="product-info">
           <h2><%= @product.name %></h2>
           <h4>By <%= link_to @merchant.username, user_path(@merchant.id) %></h4>
           <p><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %>
@@ -47,10 +47,10 @@
             </div>
   </article>
 
-            <div class="review row">
+            <div class="review-row">
               <section class = "show-product-review">
-                <h3>Customer Reviews:</h3><span></span>
-                <p><span><%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</p>
+                <h4>Customer Reviews</h4><span></span>
+                <p><span>Average Rating<%= render partial: "layouts/starrating", locals: { rating: @product.average_rating } %></span> (<%= @product.reviews.count %>)</p>
                 <article class="reviews">
                   <% @product.reviews.each do |review| %>
                   <section>
