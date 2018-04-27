@@ -61,10 +61,8 @@
               <li>Creature: <%= item.product.name %></li>
               <li>Quantity: <%= item.quantity %></li>
               <li>Price: $<%= item.product.price * item.quantity %></li>
-            <li>  <%= form_tag(change_status_path(item.id), method: "patch") do %>
-              <%= select_tag :status, options_for_select(["pending", "paid", "complete", "canceled"], item.status) %>
-              <%= submit_tag "Change Status" %>
-            <% end %></li><br/>
+
+            <% end %><br/>
 
               <% end %>
               <% end %>
