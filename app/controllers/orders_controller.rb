@@ -6,13 +6,6 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
 
-  def create
-  end
-
-  def new
-  end
-
-
   def show
     if Order.exists?(id: params[:id])
       @processed_order = Order.find(params[:id])
@@ -44,8 +37,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-  end
 
   private
     def update_order_params
