@@ -29,15 +29,58 @@ describe CategoriesController do
   describe "create" do
     it "creates a product with valid data" do
       Category.count.must_equal 3
-        proc {
-            post categories_path params: {
-              category: {
-                name: "Dangerous"
-              }
-            }
-        }.must_change "Category.count", 1
-      # must_respond_with :redirect
-      # must_redirect_to products_path
+
+      user = users(:ada)
+      login(user, :github)
+
+      category_params = {
+        name: "orange"
+      }
+
+      Category.new(category_params).must_be :valid?
+
+      post categories_path, params: {category: category_params}
+      must_respond_with :redirect
+      must_redirect_to user_path(user.id)
+      Category.count.must_equal 4
+    end
+
+
+    it "does not create a product with invalid data" do
+      Category.count.must_equal 3
+      user = users(:ada)
+      login(user, :github)
+      category_params = {
+        name: ""
+      }
+
+      Category.new(category_params).wont_be :valid?
+
+      post categories_path, params: {category: category_params}
+      must_respond_with :redirect
+      must_redirect_to user_path(user.id)
+      Category.count.must_equal 3
+    end
+  end
+
+  describe "show" do
+    it "shows a valid category" do
+      product = products(:dragon)
+      product.categories.length.must_equal 0
+
+      category = categories(:three)
+      product.categories << category
+
+      category.products.length.must_equal 1
+
+      get category_path(category)
+      must_respond_with :success
+    end
+
+    it "won's show invalid category" do
+      get category_path("carrot")
+      must_respond_with :redirect
+      must_redirect_to root_path
     end
   end
 
