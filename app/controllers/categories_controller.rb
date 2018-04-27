@@ -14,10 +14,10 @@ class CategoriesController < ApplicationController
 
     if @category.save
       flash[:success] = "Category created"
-      redirect_to new_user_product_path(@user)
+      redirect_to user_path(@user)
     else
       flash[:error] = "Category could not be created"
-      redirect_back(fallback_location: new_user_product_path(@user))
+      redirect_back(fallback_location: user_path(@user))
     end
   end
 
